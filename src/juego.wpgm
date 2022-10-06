@@ -8,7 +8,9 @@ program juego {
  	game.cellSize(50)
  	game.addVisualCharacter(personaje)
  	game.addVisual(zombie)
-    game.onTick(200, "movimiento", { zombie.moverse() })
+    game.onTick(600, "movimiento en el eje x", { zombie.moverseX() })
+    game.onTick(600,"Movimiento en el eje y", {zombie.moverseY()})
+    game.boardGround("doom.jpg")
  	
     game.start()
     

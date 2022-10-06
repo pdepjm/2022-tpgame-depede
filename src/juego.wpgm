@@ -8,6 +8,8 @@ program juego {
  	game.cellSize(50)
  	game.addVisualCharacter(personaje)
  	game.addVisual(zombie)
- 	zombie.acercate(personaje)
+    game.onTick(200, "movimiento", { zombie.moverse() })
+ 	
     game.start()
+    
   }

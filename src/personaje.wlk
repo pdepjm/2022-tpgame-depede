@@ -1,7 +1,7 @@
 import wollok.game.*
 
-object jugador{ 
-	var property jugadorPosicion = game.center()
+object personaje{ 
+	var property position = game.center()
 	method image() = "personaje.jpg"
 	}
  

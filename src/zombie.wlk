@@ -3,9 +3,17 @@ import personaje.*
 
 object zombie{ 
 	
-	method position() = game.at(0,0) 
+	var property position = game.at(0,0)
+	
+
 	method image() = "zombie.jpg"
 	
-	method acercarse(personaje) = game.position() - personaje.jugadorPosicion()
+	method moverse() {
+    const x = 0.randomUpTo(game.width()).truncate(0)
+    const y = 0.randomUpTo(game.height()).truncate(0)
+
+    position = game.at(x,y) 
+  }
+	
 	}
  

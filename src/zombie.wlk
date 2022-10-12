@@ -8,6 +8,8 @@ class Zombie {
 	
 	method image() = "zombie.jpg"
 	
+	method esZombie() = true
+	
 	method moverseX() {
 	  	if(personaje.position().x()-self.position().x() != 0){
 	  		if(personaje.position().x() >= self.position().x()){
@@ -41,7 +43,7 @@ class Zombie {
 			game.addVisual(self)
 			self.acercarseAlPersonaje();  			
   		})
-  		self.detectarChoqueConBala();
+//  		self.detectarChoqueConBala();		// PREGUNTAR
 	}
 	
 	method desaparecer() {
@@ -61,15 +63,14 @@ class Zombie {
 		}
 	}
 	
+	// PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR
 	method detectarChoqueConBala() {
 		game.whenCollideDo(self, { chocado =>
 			if(chocado.esBala()) {
 			    self.daniar(100)			
-			} 
-//			else if (!chocado.esBala()) { // si no es bala, es personaje.
-				// daniar personaje
-//				personje.daniar(52)
-//			}
+			} else if (!chocado.esBala()) {
+				// ES EL PERSONAJE
+			}
 		})
 	}
 	

@@ -1,5 +1,6 @@
 import wollok.game.*
 import personaje.*
+import bala.*
 
 class Zombie {
 	var property position = game.at(0,0)
@@ -40,6 +41,7 @@ class Zombie {
 			game.addVisual(self)
 			self.acercarseAlPersonaje();  			
   		})
+  		self.detectarChoqueConBala();
 	}
 	
 	method desaparecer() {
@@ -49,11 +51,26 @@ class Zombie {
 	method daniar(cuantoDanio) {
 		if(vida - cuantoDanio <= 0) {
 			// muere
+			vida -= cuantoDanio
 			self.desaparecer()
+			// despues de x tiempo vuelve a aparecer
+			// vida al 100
 		} else {
 			// resta
 			vida -= cuantoDanio
 		}
+	}
+	
+	method detectarChoqueConBala() {
+		game.whenCollideDo(self, { chocado =>
+			if(chocado.esBala()) {
+			    self.daniar(100)			
+			} 
+//			else if (!chocado.esBala()) { // si no es bala, es personaje.
+				// daniar personaje
+//				personje.daniar(52)
+//			}
+		})
 	}
 	
 	

@@ -1,6 +1,7 @@
 import wollok.game.*
 import personaje.*
 import zombie.*
+import bala.*
 
 program juego {
 	const zA = new Zombie()
@@ -18,6 +19,7 @@ program juego {
  	zC.nuevoZombie(3,0)
  	zD.nuevoZombie(5,4)
  	zE.nuevoZombie(10,6)
+ 	personaje.inicializarTeclas()
     game.boardGround("doom.jpg")
  	
     game.start()

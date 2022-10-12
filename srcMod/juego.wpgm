@@ -1,0 +1,35 @@
+import wollok.game.*
+import personaje.*
+import zombie.*
+import bala.*
+
+program juego {
+	const zA = new Zombie()
+	const zB = new Zombie()
+	const zC = new Zombie()
+	const zD = new Zombie()
+	const zE = new Zombie()
+    
+	game.width(30)
+ 	game.height(19)
+ 	game.cellSize(50)
+ 	game.addVisualCharacter(personaje)
+ 	
+ 	zA.nuevoZombie(0,5)
+ 	zB.nuevoZombie(1.5,8)
+ 	zC.nuevoZombie(3,0)
+ 	zD.nuevoZombie(5,4)
+ 	zE.nuevoZombie(10,6)
+ 
+    game.boardGround("doom.jpg")
+    
+    // Movimiento personaje      --- Aca modifico tambien su img para el movimiento en un futuro
+    keyboard.e().onPressDo {personaje.disparar() }
+ 	keyboard.up().onPressDo { personaje.direccion("w") }
+    keyboard.left().onPressDo { personaje.direccion("a") }
+ 	keyboard.down().onPressDo { personaje.direccion("s") }
+ 	keyboard.right().onPressDo{ personaje.direccion("d") }
+ 	
+ 
+    game.start()
+}

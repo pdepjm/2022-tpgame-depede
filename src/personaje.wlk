@@ -5,8 +5,8 @@ object personaje{
 	var property position = game.center()
 	var property vida = 100
 	var puedeDisparar = true
-	var imagenDerecha = "personaje-d.jpg"
-	var imagenIzquierda = "personaje-i.jpg"
+//	const imagenDerecha = "personaje-d.jpg"
+//	const imagenIzquierda = "personaje-i.jpg"
 	
 	method image() = "personaje-d.jpg"
 
@@ -41,11 +41,18 @@ object personaje{
 		game.removeVisual(self)
 	}
 	
+	
+	method detectarChoqueConBala() {
+		game.whenCollideDo(self, { chocado =>
+			chocado.daniar(50)
+		})
+	}
 	method daniar(cuantoDanio) {
-		if(vida-cuantoDanio <= 0) {
+		vida = 0.max(vida - cuantoDanio)
+		if(vida <= 0) {
+			// muere
 			self.perdiste()
-		} else {
-			vida -= cuantoDanio
-		}
+
+		} 
 	}
 }

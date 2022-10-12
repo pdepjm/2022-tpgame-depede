@@ -9,6 +9,7 @@ program juego {
 	const zC = new Zombie()
 	const zD = new Zombie()
 	const zE = new Zombie()
+    const music = game.sound("doomMusic.mp3")
 	
 	game.width(30)
  	game.height(19)
@@ -21,6 +22,10 @@ program juego {
  	zE.nuevoZombie(10,6)
  	personaje.inicializarTeclas()
     game.boardGround("doom.jpg")
+	music.shouldLoop(true)
+	music.volume(0.2)
+	game.schedule(200, { music.play()} )
+	
  	
     game.start()
 }

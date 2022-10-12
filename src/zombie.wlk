@@ -5,6 +5,8 @@ import bala.*
 class Zombie {
 	var property position = game.at(0,0)
 	var property vida = 100; // arranca con vida 100. En cero muere y desaparece.
+	const danio = game.sound("zombieDanio.mp3")
+	
 	
 	method image() = "zombie.jpg"
 	
@@ -47,34 +49,44 @@ class Zombie {
 	}
 	
 	method desaparecer() {
-		game.removeVisual(self);
+		game.removeVisual(self)
+		danio.shouldLoop(false)
+		danio.volume(5)
+		game.schedule(2, { danio.play()} )
 	}
 
 	method daniar(cuantoDanio) {
-		if(vida - cuantoDanio <= 0) {
+		vida = 0.max(vida - cuantoDanio)
+		game.say(self, self.hablar())
+		danio.shouldLoop(false)
+		danio.volume(0.2)
+		game.schedule(2, { danio.play()} )
+		
+		if(vida <= 0) {
 			// muere
-			vida -= cuantoDanio
 			self.desaparecer()
 			// despues de x tiempo vuelve a aparecer
 			// vida al 100
-		} else {
-			// resta
-			vida -= cuantoDanio
-		}
+		} 
 	}
 	
+	method hablar() = "auch"
 	// PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR
 	method detectarChoqueConBala() {
 		game.whenCollideDo(self, { chocado =>
 			if(chocado.esBala()) {
-			    self.daniar(100)			
+			    self.daniar(50)
+
 			} else if (!chocado.esBala()) {
 				// ES EL PERSONAJE
+				personaje.daniar(50)
 			}
 		})
 	}
 	
-	
+
+
+
 
     // position = game.at(personaje.position().x()-zombie.position().x() - 1,personaje.position().y() - zombie.position().y()-1) 
 }

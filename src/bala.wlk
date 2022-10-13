@@ -14,6 +14,7 @@ class Bala {
 	method disparo(posicionInicial,sentido) {
 		position = posicionInicial;
 		game.addVisual(self)
+		// TODO: hacer objeto por direccion unificado con el personaje y el zombie
 		if(sentido == "arriba") {
 			game.onTick(movimientoEntreDesplazamiento, "Bala arriba", {
 				self.moverBala(self.position().x(),self.position().y() + desplazamientoDisparo)
@@ -35,19 +36,14 @@ class Bala {
 	
 	method moverBala(x,y) {
 		position = game.at(x,y)		
-		self.revisarChoqueConZombie()
 		game.schedule(400, {
 			game.removeVisual(self)
-			// TODO: remove instance
+			// TODO: remove onTick
 		})
 	}
 	
-	method revisarChoqueConZombie() {
-		game.whenCollideDo(self, { chocado =>
-			if(chocado.esZombie()) {
-			    game.removeVisual(self)
-			    chocado.daniar(50)
-			}
-		})
+	method choqueConZombie(zombie) {
+		zombie.daniar(35)
+		game.removeVisual(self)
 	}
 }

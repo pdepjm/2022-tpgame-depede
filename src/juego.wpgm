@@ -4,22 +4,15 @@ import zombie.*
 import bala.*
 
 program juego {
-	const zA = new Zombie()
-	const zB = new Zombie()
-	const zC = new Zombie()
-	const zD = new Zombie()
-	const zE = new Zombie()
     const music = game.sound("doomMusic.mp3")
+	var listaZombies = []
 	
+	// separar, crear objeto juego con "instrucciones concretaws". abstrer. declaratividad.
 	game.width(30)
  	game.height(19)
  	game.cellSize(50)
  	game.addVisualCharacter(personaje)
- 	zA.nuevoZombie(0,5)
- 	zB.nuevoZombie(1.5,8)
- 	zC.nuevoZombie(3,0)
- 	zD.nuevoZombie(5,4)
- 	zE.nuevoZombie(10,6)
+ 	5.times({ index => listaZombies.add(new Zombie(index = index)) })
  	personaje.inicializarTeclas()
     game.boardGround("doom.jpg")
 	music.shouldLoop(true)

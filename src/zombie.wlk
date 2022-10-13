@@ -3,16 +3,18 @@ import personaje.*
 import bala.*
 
 class Zombie {
+	var index
 	var property position = game.at(0,0)
 	var property vida = 100; // arranca con vida 100. En cero muere y desaparece.
 	const danio = game.sound("zombieDanio.mp3")
 	
 	
 	method image() = "zombie.jpg"
-	
-	method esZombie() = true
+		
+	// 
 	
 	method moverseX() {
+		// TODO: diferencia. abstraccion
 	  	if(personaje.position().x()-self.position().x() != 0){
 	  		if(personaje.position().x() >= self.position().x()){
 	  			position = game.at(self.position().x() + 1,self.position().y())
@@ -21,8 +23,10 @@ class Zombie {
 	  		}
 	  	} 
 	  }
+	  // right, left, etc en movX movY
 
 	method moverseY() {
+				
 	  	if(personaje.position().y()-self.position().y() != 0){
 	  		if(personaje.position().y() >= self.position().y()){
 	  			position = game.at(self.position().x(),self.position().y() + 1 )
@@ -31,28 +35,37 @@ class Zombie {
 	  		}
 	  	} 
 	}  	
+	
+	
+	
+//	obcjet Dereca{		
+	//	mover(aquienMuevo, tiempo, distacia){
+	//		game.at(aquienMuevo.left(distancia))
+		//}
+		
+	//}
   	
   	method acercarseAlPersonaje() {
   		game.onTick(1000, "movimiento en el eje x", { self.moverseX() })
 	    game.onTick(1000,"Movimiento en el eje y", { self.moverseY()})
   	}
   	
-  	method nuevoZombie(delay, numForRand){
-  		game.schedule(delay*1000, {
-			const x = numForRand.randomUpTo(game.width())
-			const y = numForRand.randomUpTo(game.height())
+  	method initialize(){
+  		game.schedule(1500, {
+			const x = 8.randomUpTo(game.width())
+			const y = 5.randomUpTo(game.height())
   			position = game.at(x,y)
 			game.addVisual(self)
 			self.acercarseAlPersonaje();  			
   		})
-//  		self.detectarChoqueConBala();		// PREGUNTAR
 	}
-	
+		
 	method desaparecer() {
 		game.removeVisual(self)
 		danio.shouldLoop(false)
 		danio.volume(5)
 		game.schedule(2, { danio.play()} )
+		// sacar onTicks de movimiento
 	}
 
 	method daniar(cuantoDanio) {
@@ -73,15 +86,7 @@ class Zombie {
 	method hablar() = "auch"
 	// PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR
 	method detectarChoqueConBala() {
-		game.whenCollideDo(self, { chocado =>
-			if(chocado.esBala()) {
-			    self.daniar(50)
-
-			} else if (!chocado.esBala()) {
-				// ES EL PERSONAJE
-				personaje.daniar(50)
-			}
-		})
+		game.whenCollideDo(self, { chocado => chocado.choqueConZombie(self)})
 	}
 	
 

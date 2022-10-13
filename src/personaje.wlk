@@ -1,14 +1,18 @@
+// herencia. Personajes, niveles. Ir cambiando y evolucionando.
+// vida con imagenes que cambien
+
+
+
 import bala.*
 import wollok.game.*
 
 object personaje{ 
 	var property position = game.center()
 	var property vida = 100
+	var direccion = "d"
 	var puedeDisparar = true
-//	const imagenDerecha = "personaje-d.jpg"
-//	const imagenIzquierda = "personaje-i.jpg"
 	
-	method image() = "personaje-d.jpg"
+	method image() = "personaje-"+direccion.prefijo()+".jpg"
 
 	method disparar(sentido) {
 		if(puedeDisparar) {
@@ -19,8 +23,6 @@ object personaje{
 		}
 	}
 	
-	method esBala() = false
-	method esZombie() = false
 	
 	method inicializarTeclas() {
 		keyboard.a().onPressDo({
@@ -41,18 +43,15 @@ object personaje{
 		game.removeVisual(self)
 	}
 	
-	
-	method detectarChoqueConBala() {
-		game.whenCollideDo(self, { chocado =>
-			chocado.daniar(50)
-		})
-	}
 	method daniar(cuantoDanio) {
 		vida = 0.max(vida - cuantoDanio)
 		if(vida <= 0) {
-			// muere
 			self.perdiste()
-
-		} 
+		} else {
+			// actualizar cartel de vida en pantalla
+		}
+	}
+	method choqueConZombie(zombie) {
+		self.daniar(40)
 	}
 }

@@ -1,6 +1,7 @@
 import wollok.game.*
 import personaje.*
 import bala.*
+import movimientos.*
 
 class Zombie {
 	var index
@@ -11,29 +12,34 @@ class Zombie {
 	
 	method image() = "zombie.jpg"
 		
-	// 
+	method personajeMismoLugarQueZombie(charact) {
+		return (charact.position().x() == self.position().x()) || (charact.position().y() == self.position().y())
+	}
+	method personajeDerechaDelZombie(charact) {
+		return charact.position().x() > self.position().x();	
+	}
+	method personajeArribaDelZombie(charact) {
+		return charact.position().y() > self.position().y();			
+	}
 	
 	method moverseX() {
-		// TODO: diferencia. abstraccion
-	  	if(personaje.position().x()-self.position().x() != 0){
-	  		if(personaje.position().x() >= self.position().x()){
-	  			position = game.at(self.position().x() + 1,self.position().y())
+		if(!self.personajeMismoLugarQueZombie(personaje)) {
+	  		if(self.personajeDerechaDelZombie(personaje)){
+	  			derecha.mover(1,self)
 	  		} else {
-	  			position = game.at(self.position().x() - 1,self.position().y())
-	  		}
-	  	} 
-	  }
-	  // right, left, etc en movX movY
+	  			izquierda.mover(1,self)
+	  		}			
+		}
+	}
 
 	method moverseY() {
-				
-	  	if(personaje.position().y()-self.position().y() != 0){
-	  		if(personaje.position().y() >= self.position().y()){
-	  			position = game.at(self.position().x(),self.position().y() + 1 )
+	  	if(!self.personajeMismoLugarQueZombie(personaje)) {
+	  		if(self.personajeArribaDelZombie(personaje)){
+	  			arriba.mover(1,self)
 	  		} else {
-	  			position = game.at(self.position().x(),self.position().y() -1)
-	  		}
-	  	} 
+	  			abajo.mover(1,self)
+	  		}			
+		}
 	}  	
 	
 	
@@ -65,7 +71,7 @@ class Zombie {
 		danio.shouldLoop(false)
 		danio.volume(5)
 		game.schedule(2, { danio.play()} )
-		// sacar onTicks de movimiento
+		// sacar onTicks de movimiento, sino se va a buggear mucho el juego despues
 	}
 
 	method daniar(cuantoDanio) {
@@ -84,7 +90,7 @@ class Zombie {
 	}
 	
 	method hablar() = "auch"
-	// PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR PREGUNTAR
+
 	method detectarChoqueConBala() {
 		game.whenCollideDo(self, { chocado => chocado.choqueConZombie(self)})
 	}

@@ -1,42 +1,30 @@
-// herencia. Personajes, niveles. Ir cambiando y evolucionando.
-// vida con imagenes que cambien
-
-
+// herencia: Personajes, niveles. Ir cambiando y evolucionando.
+// vida con imagenes que cambien!! -> cero necesario, no le dan bola a eso.
 
 import bala.*
+import movimientos.*
 import wollok.game.*
 
 object personaje{ 
 	var property position = game.center()
 	var property vida = 100
-	var direccion = "d"
+	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
 	
 	method image() = "personaje-"+direccion.prefijo()+".jpg"
 
-	method disparar(sentido) {
+	method disparar() {
 		if(puedeDisparar) {
 			puedeDisparar = false
 			const balita = new Bala();
-			balita.disparo(self.position(),sentido);
+			balita.disparo(self.position(),direccion);
 			game.schedule(1000, { puedeDisparar = true })			
 		}
 	}
 	
 	
 	method inicializarTeclas() {
-		keyboard.a().onPressDo({
-//			self.image(imagenIzquierda)
-			self.disparar("izquierda")
-		});
-		keyboard.w().onPressDo({self.disparar("arriba")});
-		keyboard.s().onPressDo({self.disparar("abajo")});
-		keyboard.d().onPressDo({
-//			self.image(imagenDerecha) 
-			self.disparar("derecha")
-		});
-//		keyboard.left().onPressDo({self.image(imagenIzquierda)})
-//		keyboard.right().onPressDo({self.image(imagenDerecha)})
+		keyboard.space().onPressDo({self.disparar()});
 	}
 	
 	method perdiste() {

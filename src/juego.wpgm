@@ -1,24 +1,13 @@
 import wollok.game.*
 import personaje.*
-import zombie.*
-import bala.*
+import instrucciones.*
 
 program juego {
     const music = game.sound("doomMusic.mp3")
 	var listaZombies = []
-	
-	// separar, crear objeto juego con "instrucciones concretaws". abstrer. declaratividad.
-	game.width(30)
- 	game.height(19)
- 	game.cellSize(50)
- 	game.addVisualCharacter(personaje)
- 	5.times({ index => listaZombies.add(new Zombie(index = index)) })
+	instrucciones.crearEspacio()
+	instrucciones.agregarPersonajes(listaZombies, personaje)
  	personaje.inicializarTeclas()
-    game.boardGround("doom.jpg")
-	music.shouldLoop(true)
-	music.volume(0.2)
-	game.schedule(200, { music.play()} )
-	
- 	
+	instrucciones.musica(music)
     game.start()
 }

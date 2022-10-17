@@ -25,7 +25,7 @@ class Zombie {
 	method moverseX() {
 		if(!self.personajeMismoLugarQueZombie(personaje)) {
 	  		if(self.personajeDerechaDelZombie(personaje)){
-	  			derecha.mover(1,self)
+	  			position = derecha.mover(1,self)
 	  		} else {
 	  			izquierda.mover(1,self)
 	  		}			

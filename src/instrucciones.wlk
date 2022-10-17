@@ -1,5 +1,6 @@
 import wollok.game.*
 import zombie.*
+import personaje.*
 
 object instrucciones {
 	method crearEspacio() {
@@ -8,7 +9,7 @@ object instrucciones {
  		game.cellSize(50)
 	    game.boardGround("doom.jpg")
 	}
-	method agregarPersonajes(listaZombies, personaje) {
+	method agregarPersonajes(listaZombies) {
 		game.addVisualCharacter(personaje)
  		5.times({ index => listaZombies.add(new Zombie(index = index)) })
 	}	

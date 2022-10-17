@@ -5,12 +5,15 @@ import bala.*
 import movimientos.*
 import wollok.game.*
 
-object personaje{ 
+object personaje { 
 	var property position = game.center()
 	var property vida = 100
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
 	
+//	method image() = "personaje-d.jpg"
+
+// TODO: PONER DESPUES Y QUE FUNCIONE!!	
 	method image() = "personaje-"+direccion.prefijo()+".jpg"
 
 	method disparar() {
@@ -25,6 +28,10 @@ object personaje{
 	
 	method inicializarTeclas() {
 		keyboard.space().onPressDo({self.disparar()});
+		keyboard.up().onPressDo({ direccion = arriba });
+		keyboard.down().onPressDo({ direccion = abajo });
+		keyboard.left().onPressDo({ direccion = izquierda });
+		keyboard.right().onPressDo({ direccion = derecha });
 	}
 	
 	method perdiste() {

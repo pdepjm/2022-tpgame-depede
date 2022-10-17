@@ -1,13 +1,14 @@
 import wollok.game.*
 import personaje.*
 import instrucciones.*
+import zombie.*
 
 program juego {
     const music = game.sound("doomMusic.mp3")
 	var listaZombies = []
 	instrucciones.crearEspacio()
-	instrucciones.agregarPersonajes(listaZombies, personaje)
- 	personaje.inicializarTeclas()
-	instrucciones.musica(music)
+	instrucciones.agregarPersonajes(listaZombies)
+	personaje.inicializarTeclas()
+	// instrucciones.musica(music)
     game.start()
 }

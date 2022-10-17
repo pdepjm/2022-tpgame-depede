@@ -14,11 +14,10 @@ class Bala {
 		position = posicionInicial;
 		game.addVisual(self)
 		// TODO: hacer objeto por direccion unificado con el personaje y el zombie
-		
-		// TODO: PROBAR!!!!! Esta seria la logica de lo pedido
-				// ejecutaria: derecha.mover(desplazamiento, bala)
+				
 		game.onTick(movimientoEntreDesplazamiento, "Disparo", {
 			sentido.mover(desplazamientoDisparo,self)
+			// se ejecutaria: derecha.mover(desplazamiento, bala)
 		})
 	}
 	

@@ -74,6 +74,7 @@ class Zombie {
 			self.desaparecer()
 		} 
 	}
+	
 	method sonidoDanio() {
 		danio.shouldLoop(false)
 		danio.volume(0.2)

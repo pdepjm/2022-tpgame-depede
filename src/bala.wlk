@@ -13,11 +13,8 @@ class Bala {
 	method disparo(posicionInicial,sentido) {
 		position = posicionInicial;
 		game.addVisual(self)
-		// TODO: hacer objeto por direccion unificado con el personaje y el zombie
-				
 		game.onTick(movimientoEntreDesplazamiento, "Disparo", {
 			sentido.mover(desplazamientoDisparo,self)
-			// se ejecutaria: derecha.mover(desplazamiento, bala)
 		})
 	}
 	
@@ -25,12 +22,12 @@ class Bala {
 		position = game.at(x,y)		
 		game.schedule(400, {
 			game.removeVisual(self)
-			// TODO: remove onTick
+			game.removeTickEvent("Disparo")
 		})
 	}
 	
 	method choqueConZombie(zombie) {
-		zombie.daniar(35)
+		zombie.daniar(99)
 		game.removeVisual(self)
 	}
 }

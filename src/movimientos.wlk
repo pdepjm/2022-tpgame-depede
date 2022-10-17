@@ -3,8 +3,7 @@ import wollok.game.*
 
 object arriba {
 	method mover(n,obj) {
-//		obj.up(n)
-		return game.at(obj.position().x(),obj.up(n))
+		obj.position(obj.position().up(n))
 	}
 	method prefijo() {
 		return "ar"
@@ -13,8 +12,7 @@ object arriba {
 
 object abajo {
 	method mover(n,obj) {
-//		obj.down(n)
-		return game.at(obj.position().x(),obj.down(n))
+		obj.position(obj.position().down(n))
 	}
 	method prefijo() {
 		return "ab"
@@ -24,8 +22,7 @@ object abajo {
 object derecha {
 	var property image = "personaje-d.jpg"
 	method mover(n,obj) {
-//		obj.right(n)
-		return game.at(obj.right(n),obj.position().y())
+		obj.position(obj.position().right(n))
 	}
 	method prefijo() {
 		return "d"
@@ -36,7 +33,7 @@ object derecha {
 object izquierda {
 	var property image = "personaje-l.jpg"
 	method mover(n,obj) {
-		return game.at(obj.left(n),obj.position().y())
+		obj.position(obj.position().left(n))
 	}
 	method prefijo() {
 		return "i"

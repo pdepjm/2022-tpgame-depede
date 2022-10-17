@@ -10,10 +10,8 @@ object personaje {
 	var property vida = 100
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
-	
-//	method image() = "personaje-d.jpg"
 
-// TODO: PONER DESPUES Y QUE FUNCIONE!!	
+	// TODO: PONER DESPUES Y QUE FUNCIONE!!	
 	method image() = "personaje-"+direccion.prefijo()+".jpg"
 
 	method disparar() {

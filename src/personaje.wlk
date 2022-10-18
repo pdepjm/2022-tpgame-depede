@@ -13,12 +13,7 @@ object personaje {
 	var puedeDisparar = true
 	const danio = game.sound("perrito-danio.mp3")
 
-<<<<<<< HEAD
-	method image() = "personaje-"+direccion.prefijo()+".jpg"
-=======
-
 	method image() = "personaje/personaje-" + direccion.prefijo()+".png"
->>>>>>> 94505e3521ece3c0b3d69b416d0f0b0408c1bad6
 
 	method direccion() = return direccion
 

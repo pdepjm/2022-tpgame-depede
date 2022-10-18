@@ -10,11 +10,6 @@ program juego {
 	instrucciones.agregarPersonajes(listaZombies)
 	instrucciones.mostrarVida() 
 	personaje.inicializarTeclas()
-<<<<<<< HEAD
-	 instrucciones.musica(music)
-=======
-	
 	// instrucciones.musica(music)
->>>>>>> 94505e3521ece3c0b3d69b416d0f0b0408c1bad6
     game.start()
 }

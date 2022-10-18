@@ -6,7 +6,7 @@ class Muro {
 	var direccion = personaje.direccion()
 	var property position = personaje.position();
 
-	method image() = "muro-"+direccion.prefijo()+".png"
+	method image() = "muro/muro-"+direccion.prefijo()+".png"
 	
 	method initialize() {
 		// Agregar sonidito, quedaria cool :)

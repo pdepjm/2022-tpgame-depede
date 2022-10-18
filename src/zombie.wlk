@@ -4,13 +4,12 @@ import bala.*
 import movimientos.*
 
 class Zombie {
-	var index
 	var property position = game.at(0,0)
+	var direccion = abajo
 	var property vida = 100; // arranca con vida 100. En cero muere y desaparece.
 	const danio = game.sound("zombieDanio.mp3")
 	
-	
-	method image() = "zombie.jpg"
+	method image() = "zombie/zombie-" + direccion.prefijo()+".png"
 		
 	method personajeMismoLugarQueZombie(charact) {
 		return (charact.position().x() == self.position().x()) || (charact.position().y() == self.position().y())
@@ -26,8 +25,10 @@ class Zombie {
 		if(!self.personajeMismoLugarQueZombie(personaje)) {
 	  		if(self.personajeDerechaDelZombie(personaje)){
 	  			derecha.mover(1,self)
+	  			direccion = derecha
 	  		} else {
 	  			izquierda.mover(1,self)
+	  			direccion = izquierda
 	  		}			
 		}
 	}
@@ -36,8 +37,10 @@ class Zombie {
 	  	if(!self.personajeMismoLugarQueZombie(personaje)) {
 	  		if(self.personajeArribaDelZombie(personaje)){
 	  			arriba.mover(1,self)
+	  			direccion = arriba
 	  		} else {
 	  			abajo.mover(1,self)
+	  			direccion = abajo
 	  		}			
 		}
 	}  	

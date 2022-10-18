@@ -15,10 +15,19 @@ class Bala {
 		position = posicionInicial;
 		game.addVisual(self)
 		game.onTick(movimientoEntreDesplazamiento, "Disparo", {
-			sentido.mover(desplazamientoDisparo,self)
+			if (!self.fueraDeMapa())
+			{
+				sentido.mover(desplazamientoDisparo,self)
+			}
+			else game.removeVisual(self)
 		})
 		self.sonidoDanio()
 		
+	}
+	
+	method fueraDeMapa() {
+		return  self.position().y() > game.height() or self.position().y() < 0 or 
+			self.position().x() < 0 or self.position().x() > game.width()
 	}
 	
 	method sonidoDanio() {
@@ -27,15 +36,7 @@ class Bala {
 		game.schedule(1, { sonido.play()} )
 	}
 	
-	
-	method moverBala(x,y) {
-		position = game.at(x,y)		
-		game.schedule(400, {
-			game.removeVisual(self)
-			game.removeTickEvent("Disparo")
-		})
-	}
-	
+
 	method choqueConZombie(zombie) {
 		zombie.daniar(99)
 		game.removeVisual(self)

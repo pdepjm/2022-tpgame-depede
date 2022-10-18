@@ -6,7 +6,7 @@ object arriba {
 		obj.position(obj.position().up(n))
 	}
 	method prefijo() {
-		return "ar"
+		return "w"
 	}
 }
 
@@ -15,12 +15,11 @@ object abajo {
 		obj.position(obj.position().down(n))
 	}
 	method prefijo() {
-		return "ab"
+		return "s"
 	}
 }
 
 object derecha {
-	var property image = "personaje-d.jpg"
 	method mover(n,obj) {
 		obj.position(obj.position().right(n))
 	}
@@ -31,11 +30,10 @@ object derecha {
 
 
 object izquierda {
-	var property image = "personaje-l.jpg"
 	method mover(n,obj) {
 		obj.position(obj.position().left(n))
 	}
 	method prefijo() {
-		return "i"
+		return "a"
 	}
 }

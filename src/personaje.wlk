@@ -13,8 +13,7 @@ object personaje {
 	const danio = game.sound("perrito-danio.mp3")
 
 
-	// TODO: PONER DESPUES Y QUE FUNCIONE!!	
-	method image() = "personaje-"+direccion.prefijo()+".jpg"
+	method image() = "personaje/personaje-" + direccion.prefijo()+".png"
 
 	method disparar() {
 		if(puedeDisparar) {
@@ -58,3 +57,4 @@ object personaje {
 		self.daniar(40)
 	}
 }
+

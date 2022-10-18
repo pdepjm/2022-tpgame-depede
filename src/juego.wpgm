@@ -8,7 +8,9 @@ program juego {
 	var listaZombies = []
 	instrucciones.crearEspacio()
 	instrucciones.agregarPersonajes(listaZombies)
+	instrucciones.mostrarVida() 
 	personaje.inicializarTeclas()
+	
 	// instrucciones.musica(music)
     game.start()
 }

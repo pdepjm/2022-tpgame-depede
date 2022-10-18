@@ -6,7 +6,7 @@ object arriba {
 		obj.position(obj.position().up(n))
 	}
 	method prefijo() {
-		return "ar"
+		return "w"
 	}
 }
 
@@ -15,7 +15,7 @@ object abajo {
 		obj.position(obj.position().down(n))
 	}
 	method prefijo() {
-		return "ab"
+		return "s"
 	}
 }
 
@@ -34,6 +34,6 @@ object izquierda {
 		obj.position(obj.position().left(n))
 	}
 	method prefijo() {
-		return "i"
+		return "a"
 	}
 }

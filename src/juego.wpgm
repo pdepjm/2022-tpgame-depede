@@ -9,6 +9,6 @@ program juego {
 	instrucciones.crearEspacio()
 	instrucciones.agregarPersonajes(listaZombies)
 	personaje.inicializarTeclas()
-	// instrucciones.musica(music)
+	 instrucciones.musica(music)
     game.start()
 }

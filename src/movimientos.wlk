@@ -20,7 +20,6 @@ object abajo {
 }
 
 object derecha {
-	var property image = "personaje-d.jpg"
 	method mover(n,obj) {
 		obj.position(obj.position().right(n))
 	}
@@ -31,7 +30,6 @@ object derecha {
 
 
 object izquierda {
-	var property image = "personaje-l.jpg"
 	method mover(n,obj) {
 		obj.position(obj.position().left(n))
 	}

@@ -7,7 +7,7 @@ const movimientoEntreDesplazamiento = 200000000000
 
 class Bala {
 	var property position = personaje.position();
-	var property danio = 100; // cuanto mas lejos habria que hacer que haga menos danio. estaria bueno.
+	var property danio = 75; 
 	method image() = "fuego.png"
 	
 	method disparo(posicionInicial,sentido) {
@@ -15,6 +15,7 @@ class Bala {
 		game.addVisual(self)
 		game.onTick(movimientoEntreDesplazamiento, "Disparo", {
 			sentido.mover(desplazamientoDisparo,self)
+			self.bajarDanio(0.1)
 		})
 	}
 	
@@ -27,7 +28,12 @@ class Bala {
 	}
 	
 	method choqueConZombie(zombie) {
-		zombie.daniar(99)
+		zombie.daniar(danio)
 		game.removeVisual(self)
+	}
+	
+	method bajarDanio(cuantoDanio) {
+		// cuanto mas lejos habria que hacer que haga menos danio.
+		danio -= cuantoDanio
 	}
 }

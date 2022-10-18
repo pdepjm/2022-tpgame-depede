@@ -6,11 +6,13 @@ import movimientos.*
 class Zombie {
 	var index
 	var property position = game.at(0,0)
-	var property vida = 100; // arranca con vida 100. En cero muere y desaparece.
+	var property vida = 100;
+	var direccion = derecha
+	var puedeMoverse = true
+	
 	const danio = game.sound("zombieDanio.mp3")
 	
-	
-	method image() = "zombie.jpg"
+	method image() = "zombie-"+direccion.prefijo()+".jpg"
 		
 	method personajeMismoLugarQueZombie(charact) {
 		return (charact.position().x() == self.position().x()) || (charact.position().y() == self.position().y())
@@ -22,46 +24,56 @@ class Zombie {
 		return charact.position().y() > self.position().y();			
 	}
 	
+	method puedoPerseguir() {
+		return puedeMoverse && !self.personajeMismoLugarQueZombie(personaje)
+	}
+	
 	method moverseX() {
-		if(!self.personajeMismoLugarQueZombie(personaje)) {
+  		if(self.puedoPerseguir()) {  			
 	  		if(self.personajeDerechaDelZombie(personaje)){
-	  			derecha.mover(1,self)
+	  			direccion = derecha
 	  		} else {
-	  			izquierda.mover(1,self)
-	  		}			
+	  			direccion = izquierda
+	  		}	
+	  		direccion.mover(1,self)		
+		} else {
+			self.puedeMoverse(true) // habria que corregir esta logica/performance!!
 		}
 	}
 
 	method moverseY() {
-	  	if(!self.personajeMismoLugarQueZombie(personaje)) {
+  		if(self.puedoPerseguir()) {  			
 	  		if(self.personajeArribaDelZombie(personaje)){
-	  			arriba.mover(1,self)
+	  			direccion = arriba
 	  		} else {
-	  			abajo.mover(1,self)
-	  		}			
+	  			direccion = abajo
+	  		}	
+  			direccion.mover(1,self)		
+		} else {
+			self.puedeMoverse(true) // habria que corregir esta logica/performance!!
 		}
 	}  	
   	
   	method acercarseAlPersonaje() {
-  		game.onTick(1000, "movX", { self.moverseX() })
-	    game.onTick(1000,"movY", { self.moverseY()})
+  		game.onTick(1000, "movX-"+index, { self.moverseX() })
+	    game.onTick(1000,"movY-"+index, { self.moverseY()})
   	}
   	
   	method initialize(){
-  		game.schedule(1500, {
+  		game.schedule(2500, {
 			const x = 8.randomUpTo(game.width())
 			const y = 5.randomUpTo(game.height())
   			position = game.at(x,y)
 			game.addVisual(self)
 			self.acercarseAlPersonaje()  	
-			self.detectarChoqueConBala()		
+			self.detectarChoque()		
   		})
 	}
 		
 	method desaparecer() {
 		game.removeVisual(self)
-		game.removeTickEvent("movX")
-		game.removeTickEvent("movY")
+		game.removeTickEvent("movX-"+index)
+		game.removeTickEvent("movY-"+index)
 		danio.shouldLoop(false)
 		danio.volume(5)
 		game.schedule(2, { danio.play()} )
@@ -74,14 +86,31 @@ class Zombie {
 			self.desaparecer()
 		} 
 	}
+	
 	method sonidoDanio() {
 		danio.shouldLoop(false)
 		danio.volume(0.2)
 		game.schedule(2, { danio.play()} )
 	}
 
-	method detectarChoqueConBala() {
+	method detectarChoque() {
 		game.whenCollideDo(self, { chocado => chocado.choqueConZombie(self)})
+	}
+	
+	method choqueConZombie(obj) {
+		self.dosPasosParaAtras()
+	}
+	
+	method dosPasosParaAtras() {
+		direccion.mover(-1,self)
+	}
+	
+	method danioQueHago() {
+		return vida*0.7
+	}
+	
+	method puedeMoverse(valor) {
+		puedeMoverse = valor
 	}
 
 }

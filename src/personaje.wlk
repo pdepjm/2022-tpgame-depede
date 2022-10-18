@@ -4,6 +4,7 @@
 import bala.*
 import movimientos.*
 import wollok.game.*
+import muro.*
 
 object personaje { 
 	var property position = game.center()
@@ -11,8 +12,9 @@ object personaje {
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
 
-	// TODO: PONER DESPUES Y QUE FUNCIONE!!	
 	method image() = "personaje-"+direccion.prefijo()+".jpg"
+
+	method direccion() = return direccion
 
 	method disparar() {
 		if(puedeDisparar) {
@@ -30,6 +32,7 @@ object personaje {
 		keyboard.down().onPressDo({ direccion = abajo });
 		keyboard.left().onPressDo({ direccion = izquierda });
 		keyboard.right().onPressDo({ direccion = derecha });
+		keyboard.m().onPressDo({var murito = new Muro()})
 	}
 	
 	method perdiste() {
@@ -45,6 +48,6 @@ object personaje {
 		}
 	}
 	method choqueConZombie(zombie) {
-		self.daniar(40)
+		self.daniar(zombie.danioQueHago())
 	}
 }

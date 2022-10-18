@@ -19,3 +19,7 @@ object instrucciones {
 		game.schedule(200, { music.play()} )
 	}
 }
+
+object sonido {
+	// TODO: deberiamos tener el objeto sonido que maneje todo el sonido!
+}

@@ -3,6 +3,9 @@ import zombie.*
 import personaje.*
 
 object instrucciones {
+	var property position = game.at(0,0)
+	method image() = "game-over.jpg"
+	
 	method crearEspacio() {
 		game.width(30)
  		game.height(19)
@@ -21,6 +24,10 @@ object instrucciones {
 	method mostrarVida(){
 		vida.mostrarVida()
 	}
+	
+	method gameOver(){
+		game.addVisual(self)
+	}
 }
 
 object sonido {
@@ -35,7 +42,6 @@ object vida {
 	method textColor() = "00FF00FF"
 
 	method mostrarVida() {
-		game.addVisual(vida)
+		game.addVisual(self)
 	}
-	
 }

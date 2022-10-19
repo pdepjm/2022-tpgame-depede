@@ -6,6 +6,7 @@ const desplazamientoDisparo = 1
 const movimientoEntreDesplazamiento = 200000000000
 
 class Bala {
+	var index
 	var property position = personaje.position();
 	var property danio = 75; 
 	const sonido = game.sound("disparo.mp3")
@@ -14,13 +15,19 @@ class Bala {
 	method disparo(posicionInicial,sentido) {
 		position = posicionInicial;
 		game.addVisual(self)
-		game.onTick(movimientoEntreDesplazamiento, "Disparo", {
+		game.onTick(movimientoEntreDesplazamiento, "disparo-"+index, {
 			if (!self.fueraDeMapa()) {
 				sentido.mover(desplazamientoDisparo,self)
-			} else game.removeVisual(self)
+			} else {
+				self.eliminarBala()		
+			} 
 		})
 		self.sonidoDanio()
-		
+	}
+	
+	method eliminarBala() {
+		game.removeVisual(self)
+		game.removeTickEvent("disparo-"+index)
 	}
 	
 	method fueraDeMapa() {
@@ -36,8 +43,8 @@ class Bala {
 	
 
 	method choqueConZombie(zombie) {
-		zombie.daniar(danio)
-		game.removeVisual(self)
+		zombie.danoRecibido(danio)
+		self.eliminarBala()
 	}
 	
 	method bajarDanio(cuantoDanio) {

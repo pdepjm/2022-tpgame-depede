@@ -78,7 +78,7 @@ class Zombie {
 		game.schedule(2, { danio.play()} )
 	}
 
-	method daniar(cuantoDanio) {
+	method danoRecibido(cuantoDanio) {
 		vida = 0.max(vida - cuantoDanio)
 		self.sonidoDanio()
 		if(vida <= 0) {
@@ -105,7 +105,7 @@ class Zombie {
 	}
 	
 	method danioQueHago() {
-		return vida*0.7
+		return vida*0.6
 	}
 	
 	method puedeMoverse(valor) {

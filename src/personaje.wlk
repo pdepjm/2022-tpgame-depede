@@ -3,10 +3,12 @@
 
 import bala.*
 import movimientos.*
+import instrucciones.*
 import wollok.game.*
 import muro.*
 
 object personaje { 
+	var disparosHechos = 0
 	var property position = game.center()
 	var property vida = 100
 	var direccion = derecha // la direccion es un objeto
@@ -19,8 +21,9 @@ object personaje {
 
 	method disparar() {
 		if(puedeDisparar) {
+			disparosHechos++
 			puedeDisparar = false
-			const balita = new Bala();
+			const balita = new Bala(index = disparosHechos);
 			balita.disparo(self.position().up(0.7),direccion);
 			game.schedule(1000, { puedeDisparar = true })			
 		}
@@ -38,16 +41,14 @@ object personaje {
 	
 	method perdiste() {
 		game.removeVisual(self)
-		gameOver.gameOver()
+		instrucciones.gameOver()
 	}
 	
-	method daniar(cuantoDanio) {
+	method danoRecibido(cuantoDanio) {
 		vida = 0.max(vida - cuantoDanio)
 		self.sonidoDanio()
 		if(vida <= 0) {
 			self.perdiste()
-		} else {
-			// actualizar cartel de vida en pantalla
 		}
 	}
 	
@@ -58,16 +59,8 @@ object personaje {
 	}
 	
 	method choqueConZombie(zombie) {
-		self.daniar(zombie.danioQueHago())
+		self.danoRecibido(zombie.danioQueHago())
 	}
 }
 
-object gameOver {
-	var property position = game.at(0,0)
 
-	method image() = "game-over.jpg"
-	
-	method gameOver(){
-		game.addVisual(self)
-	}
-}

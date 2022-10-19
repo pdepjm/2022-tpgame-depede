@@ -11,12 +11,15 @@ object instrucciones {
 	}
 	method agregarPersonajes(listaZombies) {
 		game.addVisualCharacter(personaje)
- 		5.times({ index => listaZombies.add(new Zombie() ) })
+ 		5.times({ index => listaZombies.add(new Zombie(index = index) ) })
 	}	
 	method musica(music) {
 		music.shouldLoop(true)
 		music.volume(0.2)
 		game.schedule(200, { music.play()} )
+	}
+	method mostrarVida(){
+		vida.mostrarVida()
 	}
 }
 

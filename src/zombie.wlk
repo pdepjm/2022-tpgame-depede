@@ -4,6 +4,7 @@ import bala.*
 import movimientos.*
 
 class Zombie {
+	var index
 	var property position = game.at(0,0)
 	var property vida = 100;
 	var direccion = abajo

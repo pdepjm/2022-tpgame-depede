@@ -21,7 +21,7 @@ object personaje {
 		if(puedeDisparar) {
 			puedeDisparar = false
 			const balita = new Bala();
-			balita.disparo(self.position(),direccion);
+			balita.disparo(self.position().up(0.7),direccion);
 			game.schedule(1000, { puedeDisparar = true })			
 		}
 	}
@@ -38,6 +38,7 @@ object personaje {
 	
 	method perdiste() {
 		game.removeVisual(self)
+		gameOver.gameOver()
 	}
 	
 	method daniar(cuantoDanio) {
@@ -61,3 +62,12 @@ object personaje {
 	}
 }
 
+object gameOver {
+	var property position = game.at(0,0)
+
+	method image() = "game-over.jpg"
+	
+	method gameOver(){
+		game.addVisual(self)
+	}
+}

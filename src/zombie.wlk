@@ -12,7 +12,7 @@ class Zombie {
 	const danio = game.sound("zombieDanio.mp3")
 	
 	method image() = "zombie/zombie-" + direccion.prefijo()+".png"
-		
+		 
 	method personajeMismoLugarQueZombie(charact) {
 		return (charact.position().x() == self.position().x()) || (charact.position().y() == self.position().y())
 	}
@@ -110,6 +110,10 @@ class Zombie {
 	
 	method puedeMoverse(valor) {
 		puedeMoverse = valor
+	}
+	
+	method directoAbajo() {
+		position = game.at(0,0)
 	}
 
 }

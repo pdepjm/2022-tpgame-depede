@@ -2,8 +2,11 @@ import wollok.game.*
 import personaje.*
 import movimientos.*
 
-const desplazamientoDisparo = 1
-const movimientoEntreDesplazamiento = 200000000000
+const desplazamientoDisparo 				= 1
+const movimientoEntreDesplazamientoBala 	= 200000000000
+
+const desplazamientoBomba	 				= 2
+const movimientoEntreDesplazamientoBomba 	= 1500
 
 class Bala {
 	var index
@@ -12,20 +15,21 @@ class Bala {
 	const sonido = game.sound("disparo.mp3")
 	method image() = "fuego.png"
 	
+	
 	method disparo(posicionInicial,sentido) {
 		position = posicionInicial;
 		game.addVisual(self)
-		game.onTick(movimientoEntreDesplazamiento, "disparo-"+index, {
+		game.onTick(movimientoEntreDesplazamientoBala, "disparo-"+index, {
 			if (!self.fueraDeMapa()) {
 				sentido.mover(desplazamientoDisparo,self)
 			} else {
-				self.eliminarBala()		
+				self.eliminarme()		
 			} 
 		})
 		self.sonidoDanio()
 	}
 	
-	method eliminarBala() {
+	method eliminarme() {
 		game.removeVisual(self)
 		game.removeTickEvent("disparo-"+index)
 	}
@@ -44,11 +48,45 @@ class Bala {
 
 	method choqueConZombie(zombie) {
 		zombie.danoRecibido(danio)
-		self.eliminarBala()
+		self.eliminarme()
 	}
 	
 	method bajarDanio(cuantoDanio) {
 		// cuanto mas lejos habria que hacer que haga menos danio.
 		danio -= cuantoDanio
 	}
+}
+
+class Bomba inherits Bala {
+	
+	method image() = "bomba.png"
+	
+	override method eliminarme() {
+		self.explotar()
+		super()
+	}
+	
+	override method choqueConZombie(zombie) {
+		self.explotar()
+		self.bajarDanio(20)
+		super(zombie)
+	}
+	
+	method explotar() {
+		// poner gif de explosion?? como seria?
+	}
+	
+	method disparo(posicionInicial,sentido) {
+		position = posicionInicial;
+		game.addVisual(self)
+		game.onTick(movimientoEntreDesplazamientoBomba, "disparo-"+index, {
+			if (!self.fueraDeMapa()) {
+				sentido.mover(desplazamientoBomba,self)
+			} else {
+				self.eliminarme()		
+			} 
+		})
+		self.sonidoDanio()
+	}
+	
 }

@@ -18,25 +18,43 @@ object personaje {
 	method image() = "personaje/personaje-" + direccion.prefijo()+".png"
 
 	method direccion() = return direccion
-
+	
+	method puedeDisparar() = puedeDisparar
+	
+	method puedeDisparar(valor) {
+		puedeDisparar = valor
+	}
+	
+	method nuevoDisparo() {
+		disparosHechos++
+	}
+	
+	method disparosHechos() = disparosHechos
+	
+	// DEJAR TODO ESTO ASIII!! ES PARA HACER POLIMORFICO BALA Y BOMBA PERO AUN NO ESTA TERMINADO!
 	method disparar() {
-		if(puedeDisparar) {
-			disparosHechos++
-			puedeDisparar = false
-			const balita = new Bala(index = disparosHechos);
-			balita.disparo(self.position().up(0.7),direccion);
-			game.schedule(1000, { puedeDisparar = true })			
+		if(self.puedeDisparar()) {
+			self.nuevoDisparo()
+			self.puedeDisparar(false)
+			
+			const balita = new Bala(index = self.disparosHechos());
+			balita.disparo(self.position().up(0.7),self.direccion());
+			
+			game.schedule(1000, { self.puedeDisparar(true) })			
 		}
 	}
 	
-	
+			
 	method inicializarTeclas() {
 		keyboard.space().onPressDo({self.disparar()});
+//		keyboard.b().onPressDo({bomba.disparar()});
 		keyboard.up().onPressDo({ direccion = arriba });
 		keyboard.down().onPressDo({ direccion = abajo });
 		keyboard.left().onPressDo({ direccion = izquierda });
 		keyboard.right().onPressDo({ direccion = derecha });
-		keyboard.m().onPressDo({var murito = new Muro()})
+		keyboard.m().onPressDo({var murito = new Muro(tiempo = 6)})
+		keyboard.n().onPressDo({var minita = new Mina(tiempo = 3)})
+		keyboard.l().onPressDo({var loquito = new MuroLoco(tiempo = 3)})
 	}
 	
 	method perdiste() {

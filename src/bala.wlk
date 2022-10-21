@@ -47,7 +47,7 @@ class Bala {
 	
 
 	method choqueConZombie(zombie) {
-		zombie.danoRecibido(danio)
+		zombie.danoRecibido()
 		self.eliminarme()
 	}
 	

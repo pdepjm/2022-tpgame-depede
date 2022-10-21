@@ -5,13 +5,15 @@ import movimientos.*
 
 class Zombie {
 	var index
+	var tipo = "alpha" // alpha - beta - delta
 	var property position = game.at(0,0)
 	var property vida = 100;
 	var direccion = abajo
 	var puedeMoverse = true
+	
 	const danio = game.sound("zombieDanio.mp3")
 	
-	method image() = "zombie/zombie-" + direccion.prefijo()+".png"
+	method image() = "zombie/" + tipo + "/zombie-" + direccion.prefijo()+".png"
 		 
 	method personajeMismoLugarQueZombie(charact) {
 		return (charact.position().x() == self.position().x()) || (charact.position().y() == self.position().y())
@@ -54,8 +56,8 @@ class Zombie {
 	}  	
   	
   	method acercarseAlPersonaje() {
-  		game.onTick(1000, "movX-"+index, { self.moverseX() })
-	    game.onTick(1000,"movY-"+index, { self.moverseY()})
+  		game.onTick(1000, "movX-" + index + "-" + tipo, { self.moverseX() })
+	    game.onTick(1000,"movY-" + index + "-" + tipo, { self.moverseY()})
   	}
   	
   	method initialize(){
@@ -71,15 +73,15 @@ class Zombie {
 		
 	method desaparecer() {
 		game.removeVisual(self)
-		game.removeTickEvent("movX-"+index)
-		game.removeTickEvent("movY-"+index)
+		game.removeTickEvent("movX-" + index + "-" + tipo)
+		game.removeTickEvent("movY-" + index + "-" + tipo)
 		danio.shouldLoop(false)
 		danio.volume(5)
 		game.schedule(2, { danio.play()} )
 	}
 
-	method danoRecibido(cuantoDanio) {
-		vida = 0.max(vida - cuantoDanio)
+	method danoRecibido() {
+		vida = 0.max(vida - self.danioQueHago())
 		self.sonidoDanio()
 		if(vida <= 0) {
 			self.desaparecer()
@@ -115,5 +117,62 @@ class Zombie {
 	method directoAbajo() {
 		position = game.at(0,0)
 	}
+}
 
+class ZombieAlpha inherits Zombie {
+	method initialize() {
+		super()
+		tipo = "alpha"
+	}	
+	
+	override method danioQueHago() {
+		return vida*0.4
+	}
+	
+	method atacar() {
+		return null
+	}
+	
+}
+
+class ZombieBeta inherits Zombie {
+	
+	method initialize() {
+		super()
+		tipo = "beta"
+	}	
+	
+	override method danioQueHago() {
+		return vida*0.6
+	}
+	
+	method atacar() {
+		game.onTick(2500,"atacar-" + index + "-" + tipo, { self.soltar()})
+	}
+	
+	method soltar() {
+		
+	}
+	
+}
+
+class ZombieDelta inherits Zombie {
+	
+	method initialize() {
+		super()
+		tipo = "delta"
+	}	
+	
+	override method danioQueHago() {
+		return vida*0.75
+	}
+	
+	method atacar() {
+		game.onTick(2500,"atacar-" + index + "-" + tipo, { self.disparar()})
+	}
+	
+	method disparar() {
+		
+	}
+	
 }

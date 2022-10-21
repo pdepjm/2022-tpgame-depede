@@ -32,7 +32,7 @@ class Mina inherits Muro {
 	
 	override method choqueConZombie(zombie) {
 		super(zombie) // Zombie no puede moverse
-		zombie.danoRecibido(25)
+		zombie.danoRecibido()
 	}
 }
 

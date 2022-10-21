@@ -2,9 +2,12 @@ import wollok.game.*
 import zombie.*
 import personaje.*
 
+//const maxZombiesVivos = 5
+
 object instrucciones {
 	var property position = game.at(0,0)
 	method image() = "game-over.jpg"
+	
 	
 	method crearEspacio() {
 		game.width(30)
@@ -14,8 +17,21 @@ object instrucciones {
 	}
 	method agregarPersonajes(listaZombies) {
 		game.addVisualCharacter(personaje)
- 		5.times({ index => listaZombies.add(new ZombieAlpha(index = index) ) })
+  		game.onTick(2000, "nuevoZombie", { self.agregarZombies(listaZombies) })
 	}	
+	
+	method agregarZombies(listaZombies) {
+		if(juego.zombiesVivos() <= 5) {
+			if(juego.zombiesTotales() < 6) {
+				listaZombies.add(new Alpha(index = juego.zombiesTotales()))				
+			} else if(juego.zombiesTotales() < 12) {
+				listaZombies.add(new Beta(index = juego.zombiesTotales()))
+			} else {
+				listaZombies.add(new Delta(index = juego.zombiesTotales()))
+			}
+		}
+	}
+	
 	method musica(music) {
 		music.shouldLoop(true)
 		music.volume(0.2)
@@ -43,5 +59,22 @@ object vida {
 
 	method mostrarVida() {
 		game.addVisual(self)
+	}
+}
+
+object juego {
+	var zombiesVivos = 0
+	var zombiesTotales = 0
+	
+	method zombiesVivos() = zombiesVivos
+	method zombiesTotales() = zombiesTotales
+
+	method nuevoZombie() {
+		zombiesVivos += 1
+		zombiesTotales += 1
+	}	
+	
+	method zombieMuere() {
+		zombiesVivos -= 1
 	}
 }

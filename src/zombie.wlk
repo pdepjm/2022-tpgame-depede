@@ -2,6 +2,7 @@ import wollok.game.*
 import personaje.*
 import bala.*
 import movimientos.*
+import instrucciones.*
 
 class Zombie {
 	var index
@@ -61,17 +62,17 @@ class Zombie {
   	}
   	
   	method initialize(){
-  		game.schedule(2500, {
-			const x = 8.randomUpTo(game.width())
-			const y = 5.randomUpTo(game.height())
-  			position = game.at(x,y)
-			game.addVisual(self)
-			self.acercarseAlPersonaje()  	
-			self.detectarChoque()		
-  		})
+  		juego.nuevoZombie()
+		const x = 8.randomUpTo(game.width())
+		const y = 5.randomUpTo(game.height())
+		position = game.at(x,y)
+		game.addVisual(self)
+		self.acercarseAlPersonaje()  	
+		self.detectarChoque()		
 	}
 		
 	method desaparecer() {
+		juego.zombieMuere()
 		game.removeVisual(self)
 		game.removeTickEvent("movX-" + index + "-" + tipo)
 		game.removeTickEvent("movY-" + index + "-" + tipo)
@@ -81,7 +82,7 @@ class Zombie {
 	}
 
 	method danoRecibido() {
-		vida = 0.max(vida - self.danioQueHago())
+		vida = 0.max(vida - 60) // self.danioQueHago()
 		self.sonidoDanio()
 		if(vida <= 0) {
 			self.desaparecer()
@@ -107,7 +108,7 @@ class Zombie {
 	}
 	
 	method danioQueHago() {
-		return vida*0.6
+		return 25.max(vida*0.6)
 	}
 	
 	method puedeMoverse(valor) {
@@ -119,7 +120,7 @@ class Zombie {
 	}
 }
 
-class ZombieAlpha inherits Zombie {
+class Alpha inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "alpha"
@@ -135,7 +136,7 @@ class ZombieAlpha inherits Zombie {
 	
 }
 
-class ZombieBeta inherits Zombie {
+class Beta inherits Zombie {
 	
 	method initialize() {
 		super()
@@ -156,7 +157,7 @@ class ZombieBeta inherits Zombie {
 	
 }
 
-class ZombieDelta inherits Zombie {
+class Delta inherits Zombie {
 	
 	method initialize() {
 		super()

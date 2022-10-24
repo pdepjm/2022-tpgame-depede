@@ -81,8 +81,8 @@ class Zombie {
 //		game.schedule(2, { danio.play()} )
 	}
 
-	method danoRecibido() {
-		vida = 0.max(vida - 60) // self.danioQueHago()
+	method danoRecibido(danioRecibido) {
+		vida = 0.max(vida - danioRecibido) // self.danioQueHago()
 		self.sonidoDanio()
 		if(vida <= 0) {
 			self.desaparecer()

@@ -4,6 +4,7 @@ import personaje.*
 import juego.*
 
 const music = game.sound("doomMusic.mp3")
+const musicInicio = game.sound("menuInicio.mp3")
 const risa = game.sound("risaFinal.mp3")
 //const maxZombiesVivos = 5
 
@@ -91,15 +92,19 @@ object juego {
 
 object inicio {
 	var property position = game.at(0,0)
-		var listaZombies = []
+	var listaZombies = []
 	method image() = "inicio.png" 
 	method mostrarInicio() {
 		game.addVisual(self)
+		musicInicio.shouldLoop(true)
+		musicInicio.volume(0.2)
+		game.schedule(200, { musicInicio.play()} )
 		keyboard.enter().onPressDo { 	
 			instrucciones.crearEspacio()
 			instrucciones.agregarPersonajes(listaZombies)
 			instrucciones.mostrarVida()
 			personaje.inicializarTeclas()
+			game.schedule(0,{musicInicio.stop()})
 			game.removeVisual(self)
 			instrucciones.musica()}
 	}

@@ -35,13 +35,12 @@ object personaje {
 	
 	// DEJAR TODO ESTO ASIII!! ES PARA HACER POLIMORFICO BALA Y BOMBA PERO AUN NO ESTA TERMINADO!
 	method disparar() {
-		if(self.puedeDisparar()) {
+		if( self.puedeDisparar()) {
 			self.nuevoDisparo()
 			self.puedeDisparar(false)
 			
 			const balita = new Bala(index = self.disparosHechos());
-			balita.disparo(self.position().up(0.7),self.direccion());
-			
+			balita.disparo(self.direccion());
 			game.schedule(1000, { self.puedeDisparar(true) })			
 		}
 	}

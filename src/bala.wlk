@@ -8,16 +8,39 @@ const movimientoEntreDesplazamientoBala 	= 200000000000
 const desplazamientoBomba	 				= 2
 const movimientoEntreDesplazamientoBomba 	= 1500
 
-class Bala {
+class ObjetosDisparables{
 	var index
-	var property position = personaje.position();
-	var property danio = 75; 
-	const sonido = game.sound("disparo.mp3")
-	method image() = "fuego.png"
+	var property position = personaje.position().up(0.7)
 	
+	method danio()
+	method image()
+	method sonido()
 	
-	method disparo(posicionInicial,sentido) {
-		position = posicionInicial;
+	method eliminarme() {
+		game.removeVisual(self)
+		game.removeTickEvent("disparo-"+index)
+	}
+	
+	method sonidoDanio(){
+		self.sonido().shouldLoop(false)
+		self.sonido().volume(0.2)
+		game.schedule(1, {self.sonido().play()} )
+	}
+	
+	method choqueConZombie(zombie) {
+		zombie.danoRecibido(self.danio())
+		self.eliminarme()
+	}
+
+}
+
+class Bala inherits ObjetosDisparables{
+    override method danio() = 100;
+	override method sonido() = game.sound("disparo.mp3")
+	override method image() = "fuego.png"
+
+
+	method disparo(sentido) {
 		game.addVisual(self)
 		game.onTick(movimientoEntreDesplazamientoBala, "disparo-"+index, {
 			if (!self.fueraDeMapa()) {
@@ -29,37 +52,21 @@ class Bala {
 		self.sonidoDanio()
 	}
 	
-	method eliminarme() {
-		game.removeVisual(self)
-		game.removeTickEvent("disparo-"+index)
-	}
-	
 	method fueraDeMapa() {
 		return  self.position().y() > game.height() or self.position().y() < 0 or 
 			self.position().x() < 0 or self.position().x() > game.width()
 	}
 	
-	method sonidoDanio() {
-		sonido.shouldLoop(false)
-		sonido.volume(0.2)
-		game.schedule(1, { sonido.play()} )
-	}
-	
-
-	method choqueConZombie(zombie) {
-		zombie.danoRecibido()
-		self.eliminarme()
-	}
-	
-	method bajarDanio(cuantoDanio) {
-		// cuanto mas lejos habria que hacer que haga menos danio.
-		danio -= cuantoDanio
-	}
 }
 
+
+/* La bomba si no la toca un zombie desaparece en 6 segundos, si la toca un zombie explota */
 class Bomba inherits Bala {
 	
-	method image() = "bomba.png"
+    override method danio() = 75;
+	override method sonido() = game.sound("disparo.mp3")  // Necesita otro sonido
+	override method image() = "bomba.png"  
+
 	
 	override method eliminarme() {
 		self.explotar()
@@ -68,7 +75,6 @@ class Bomba inherits Bala {
 	
 	override method choqueConZombie(zombie) {
 		self.explotar()
-		self.bajarDanio(20)
 		super(zombie)
 	}
 	
@@ -76,17 +82,12 @@ class Bomba inherits Bala {
 		// poner gif de explosion?? como seria?
 	}
 	
-	method disparo(posicionInicial,sentido) {
-		position = posicionInicial;
+	override method disparo(sentido) {
 		game.addVisual(self)
-		game.onTick(movimientoEntreDesplazamientoBomba, "disparo-"+index, {
-			if (!self.fueraDeMapa()) {
-				sentido.mover(desplazamientoBomba,self)
-			} else {
-				self.eliminarme()		
-			} 
+		game.schedule(6000, {
+			self.sonidoDanio()
+			self.eliminarme()
 		})
-		self.sonidoDanio()
 	}
 	
 }

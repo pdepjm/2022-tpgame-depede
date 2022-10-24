@@ -76,9 +76,9 @@ class Zombie {
 		game.removeVisual(self)
 		game.removeTickEvent("movX-" + index + "-" + tipo)
 		game.removeTickEvent("movY-" + index + "-" + tipo)
-		danio.shouldLoop(false)
-		danio.volume(5)
-		game.schedule(2, { danio.play()} )
+//		danio.shouldLoop(false)
+//		danio.volume(0.2)
+//		game.schedule(2, { danio.play()} )
 	}
 
 	method danoRecibido() {
@@ -86,6 +86,8 @@ class Zombie {
 		self.sonidoDanio()
 		if(vida <= 0) {
 			self.desaparecer()
+			personaje.puntos(personaje.puntos() + 100) 
+			personaje.zombiesRestantes(personaje.zombiesRestantes() - 1)
 		} 
 	}
 	

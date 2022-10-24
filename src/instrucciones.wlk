@@ -4,6 +4,7 @@ import personaje.*
 import juego.*
 
 const music = game.sound("doomMusic.mp3")
+const risa = game.sound("risaFinal.mp3")
 //const maxZombiesVivos = 5
 
 object instrucciones {
@@ -41,15 +42,21 @@ object instrucciones {
 	}
 	method mostrarVida(){
 		vida.mostrarVida()
+
+		
 	}
 	
 	method gameOver(){
 		game.addVisual(self)
 		game.schedule(0,{music.stop()})
+		risa.volume(0.5)
+		risa.play()
 		
 		
 	}
 }
+
+
 
 object sonido {
 	// TODO: deberiamos tener el objeto sonido que maneje todo el sonido!
@@ -57,11 +64,9 @@ object sonido {
 
 object vida {
 	
-	method position() = game.at(2,1)
-	
-	method text() = "vida: " + personaje.vida() 
+	method position() = game.at(2,1)	
+	method text() = "Vida: " + personaje.vida() + "\n" + "Enemigos Restantes:" + personaje.zombiesRestantes() + "\n" + "Puntos:" + personaje.puntos() 
 	method textColor() = "00FF00FF"
-
 	method mostrarVida() {
 		game.addVisual(self)
 	}
@@ -82,4 +87,22 @@ object juego {
 	method zombieMuere() {
 		zombiesVivos -= 1
 	}
+}
+
+object inicio {
+	var property position = game.at(0,0)
+		var listaZombies = []
+	method image() = "inicio.png" 
+	method mostrarInicio() {
+		game.addVisual(self)
+		keyboard.enter().onPressDo { 	
+			instrucciones.crearEspacio()
+			instrucciones.agregarPersonajes(listaZombies)
+			instrucciones.mostrarVida()
+			personaje.inicializarTeclas()
+			game.removeVisual(self)
+			instrucciones.musica()}
+	}
+	
+	
 }

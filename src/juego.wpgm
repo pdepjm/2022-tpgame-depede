@@ -5,11 +5,14 @@ import zombie.*
 
 program juego {
     
-	var listaZombies = []
+    // MOVI TODO A INICIO.MOSTRARINICIO() PARA QUE HAYA UN BOTON PARA INICIAR
+    
+//	var listaZombies = []
 	instrucciones.crearEspacio()
-	instrucciones.agregarPersonajes(listaZombies)
-	instrucciones.mostrarVida() 
-	personaje.inicializarTeclas()
-	instrucciones.musica()
+//	instrucciones.agregarPersonajes(listaZombies)
+//	instrucciones.mostrarVida()
+//	personaje.inicializarTeclas()
+//	instrucciones.musica()
+	inicio.mostrarInicio()
     game.start()
 }

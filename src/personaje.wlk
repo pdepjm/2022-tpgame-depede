@@ -14,6 +14,8 @@ object personaje {
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
 	const danio = game.sound("perrito-danio.mp3")
+	var property puntos = 0
+	var property zombiesRestantes = 30
 
 	method image() = "personaje/personaje-" + direccion.prefijo()+".png"
 

@@ -4,12 +4,12 @@ import instrucciones.*
 import zombie.*
 
 program juego {
-    //const music = game.sound("doomMusic.mp3")
+    
 	var listaZombies = []
 	instrucciones.crearEspacio()
 	instrucciones.agregarPersonajes(listaZombies)
 	instrucciones.mostrarVida() 
 	personaje.inicializarTeclas()
-	// instrucciones.musica(music)
+	instrucciones.musica()
     game.start()
 }

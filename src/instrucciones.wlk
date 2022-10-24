@@ -1,7 +1,9 @@
 import wollok.game.*
 import zombie.*
 import personaje.*
+import juego.*
 
+const music = game.sound("doomMusic.mp3")
 //const maxZombiesVivos = 5
 
 object instrucciones {
@@ -32,7 +34,7 @@ object instrucciones {
 		}
 	}
 	
-	method musica(music) {
+	method musica() {
 		music.shouldLoop(true)
 		music.volume(0.2)
 		game.schedule(200, { music.play()} )
@@ -43,6 +45,9 @@ object instrucciones {
 	
 	method gameOver(){
 		game.addVisual(self)
+		game.schedule(0,{music.stop()})
+		
+		
 	}
 }
 

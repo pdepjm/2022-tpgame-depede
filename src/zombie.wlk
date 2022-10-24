@@ -102,24 +102,22 @@ class Zombie {
 	}
 	
 	method choqueConZombie(obj) {
-		self.dosPasosParaAtras()
-	}
-	
-	method dosPasosParaAtras() {
 		direccion.mover(-1,self)
 	}
 	
-	method danioQueHago() {
-		return 25.max(vida*0.6)
-	}
+
+	method danioQueHago()
+	method atacar()
 	
 	method puedeMoverse(valor) {
 		puedeMoverse = valor
 	}
 	
-	method directoAbajo() {
+	method directoAbajo() {         // -- Revisar llamado
 		position = game.at(0,0)
 	}
+	
+	
 }
 
 class Alpha inherits Zombie {
@@ -132,7 +130,7 @@ class Alpha inherits Zombie {
 		return vida*0.4
 	}
 	
-	method atacar() {
+	override method atacar() {
 		return null
 	}
 	
@@ -149,7 +147,7 @@ class Beta inherits Zombie {
 		return vida*0.6
 	}
 	
-	method atacar() {
+	override method atacar() {
 		game.onTick(2500,"atacar-" + index + "-" + tipo, { self.soltar()})
 	}
 	
@@ -170,7 +168,7 @@ class Delta inherits Zombie {
 		return vida*0.75
 	}
 	
-	method atacar() {
+	override method atacar() {
 		game.onTick(2500,"atacar-" + index + "-" + tipo, { self.disparar()})
 	}
 	

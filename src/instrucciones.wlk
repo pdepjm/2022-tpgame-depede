@@ -25,21 +25,27 @@ object instrucciones {
 	}	
 	
 	method agregarZombies(listaZombies) {
-		if(juego.zombiesVivos() <= 5) {
-			if(juego.zombiesTotales() < 6) {
-				listaZombies.add(new Alpha(index = juego.zombiesTotales()))				
-			} else if(juego.zombiesTotales() < 12) {
-				listaZombies.add(new Beta(index = juego.zombiesTotales()))
-			} else {
-				listaZombies.add(new Delta(index = juego.zombiesTotales()))
+		if(personaje.zombiesRestantes() > 0){
+			if(juego.zombiesVivos() <= 5) {
+				if(juego.zombiesTotales() < 10) {
+					listaZombies.add(new Alpha(index = juego.zombiesTotales()))				
+				} else if(juego.zombiesTotales() < 20) {
+					listaZombies.add(new Beta(index = juego.zombiesTotales()))
+				} else {
+					listaZombies.add(new Delta(index = juego.zombiesTotales()))
+				}
 			}
+			
+		} else {
+			game.removeTickEvent("nuevoZombie")
+			new Boss(index = juego.zombiesTotales())
 		}
 	}
 	
 	method musica() {
 		music.shouldLoop(true)
-		music.volume(0.2)
-		game.schedule(200, { music.play()} )
+		music.volume(0.1)
+		music.play()
 	}
 	method mostrarVida(){
 		vida.mostrarVida()
@@ -50,7 +56,7 @@ object instrucciones {
 	method gameOver(){
 		game.addVisual(self)
 		game.schedule(0,{music.stop()})
-		risa.volume(0.5)
+		risa.volume(1)
 		risa.play()
 		
 		
@@ -85,8 +91,13 @@ object juego {
 		zombiesTotales += 1
 	}	
 	
-	method zombieMuere() {
+	method zombieMuere(danioRecibido) {
 		zombiesVivos -= 1
+		personaje.puntos(personaje.puntos() + danioRecibido) 
+		if(personaje.zombiesRestantes() > 0){
+			personaje.zombiesRestantes(personaje.zombiesRestantes() - 1)
+			
+		}
 	}
 }
 
@@ -108,6 +119,15 @@ object inicio {
 			game.removeVisual(self)
 			instrucciones.musica()}
 	}
+}
+
+object ganar{
+	var property position = game.at(0,0)
+	method image() = "game-winner.jpg"
 	
+	method ganaste(){
+		game.addVisual(self)
+		game.schedule(0,{music.stop()})
+	}
 	
 }

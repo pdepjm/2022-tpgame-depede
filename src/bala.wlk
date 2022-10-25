@@ -27,7 +27,7 @@ class ObjetosUsables{
 	method sonidoDanio(){
 		self.sonido().shouldLoop(false)
 		self.sonido().volume(0.2)
-		game.schedule(1, {self.sonido().play()} )
+		self.sonido().play()
 	}
 	
 	method choqueConZombie(zombie) {
@@ -79,7 +79,7 @@ class Bala inherits ObjetosUsables{
 
 /* La bomba si no la toca un zombie desaparece en 6 segundos, si la toca un zombie explota */
 class Bomba inherits ObjetosUsables {
-	override method cantidadPuntosRequeridos() = 500
+	override method cantidadPuntosRequeridos() = 100
     override method danio() = 75;
 	override method sonido() = game.sound("disparo.mp3")  // Necesita otro sonido
 	override method image() = "bomba.png"  
@@ -115,7 +115,7 @@ class Muro inherits ObjetosUsables{
 	const tiempo = 6
 	const sentido = personaje.direccion()
 	
-	override method cantidadPuntosRequeridos() = 500 
+	override method cantidadPuntosRequeridos() = 100 
 	override method sonido() {}
 	override method image() = "muro/muro-a.png"
 	override method danio() = 0

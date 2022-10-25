@@ -55,7 +55,7 @@ object personaje {
 		if( self.puedeDisparar()) {
 			const balita = new Bala(index = self.disparosHechos(),sentido = self.direccion());
 			self.usar(balita)
-			//self.esperaDeDisparo()			
+			self.esperaDeDisparo()			
 		}
 		
 	}
@@ -89,7 +89,7 @@ object personaje {
 	method sonidoDanio() {
 		danio.shouldLoop(false)
 		danio.volume(0.2)
-		game.schedule(2, { danio.play()} )
+		game.schedule(1,{danio.play()})
 	}
 	
 	method choqueConZombie(zombie) {

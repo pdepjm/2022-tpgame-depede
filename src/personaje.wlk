@@ -19,12 +19,10 @@ object personaje {
 	method puedeUsarse(habilidad){ return habilidad.cantidadPuntosRequeridos() <= self.puntos() }
 
 	method usar(habilidad) {
-		if ( self.puedeUsarse(habilidad) ) 
-		{ 	
+		if ( self.puedeUsarse(habilidad) ) { 	
 			habilidad.accionarse()
 			self.puntos( self.puntos() - habilidad.cantidadPuntosRequeridos())
 		}
-			
 	}
 
 	method image() = "personaje/personaje-" + direccion.prefijo()+".png"
@@ -49,14 +47,12 @@ object personaje {
 		game.schedule(1000, { self.puedeDisparar(true) })	
 	}
 	
-	// DEJAR TODO ESTO ASIII!! ES PARA HACER POLIMORFICO BALA Y BOMBA PERO AUN NO ESTA TERMINADO!
 	method disparar() {
 		if( self.puedeDisparar()) {
 			const balita = new Bala(index = self.disparosHechos(),sentido = self.direccion());
 			self.usar(balita)
 			self.esperaDeDisparo()			
 		}
-		
 	}
 	
 			

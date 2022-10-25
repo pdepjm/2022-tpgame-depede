@@ -14,7 +14,6 @@ class ObjetosUsables {
 	
 	method cantidadPuntosRequeridos()
 	
-	
 	method danio()
 	method image()
 	method sonido()

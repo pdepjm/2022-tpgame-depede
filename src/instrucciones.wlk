@@ -47,6 +47,7 @@ object instrucciones {
 	method eliminarZombies(listaZombies) {
 		listaZombies.forEach({zombie => {
 			zombie.muero(100)
+			listaZombies.remove(zombie)
 		}})
 	}
 	

@@ -14,8 +14,6 @@ class Zombie {
 	
 	const zombieDanio = game.sound("zombieDanio.mp3")
 	
-	
-	
 	method image() = "zombie/" + tipo + "/zombie-" + direccion.prefijo()+".png"
 		 
 	method personajeMismoLugarQueZombie(charact) {
@@ -126,7 +124,7 @@ class Alpha inherits Zombie {
 	}
 	
 	override method atacar() {
-		return null
+
 	}
 	
 }

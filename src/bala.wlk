@@ -77,7 +77,7 @@ class Bala inherits ObjetosUsables{
 }
 
 
-/* La bomba si no la toca un zombie desaparece en 6 segundos, si la toca un zombie explota */
+/* La bomba si no la toca un zombie desaparece en 6 segundos, si la toca un zombie explota */ // ESTO SE SACO Y ESTA ABAJO COMO MINA
 class Bomba inherits ObjetosUsables {
 	override method cantidadPuntosRequeridos() = 100
     override method danio() = 75;

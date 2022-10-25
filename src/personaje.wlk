@@ -69,8 +69,8 @@ object personaje {
 		keyboard.left().onPressDo({ direccion = izquierda });
 		keyboard.right().onPressDo({ direccion = derecha });
 		keyboard.m().onPressDo( { self.usar(new Muro()) })
-		//keyboard.n().onPressDo({var minita = new Mina(tiempo = 3)})
-		//keyboard.l().onPressDo({var loquito = new MuroLoco(tiempo = 3)})
+		keyboard.n().onPressDo({self.usar(new Mina())})
+		keyboard.l().onPressDo({self.usar(new MuroLoco())})
 	}
 	
 	method perdiste() {

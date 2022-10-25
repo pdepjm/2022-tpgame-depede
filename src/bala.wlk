@@ -13,7 +13,6 @@ class ObjetosUsables {
 	var property position = personaje.position().up(0.7)
 	
 	method cantidadPuntosRequeridos()
-
 	
 	method danio()
 	method image()

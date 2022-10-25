@@ -1,4 +1,29 @@
-test "testX" {
+import personaje.*
+import zombie.*
+import instrucciones.*
+import bala.*
 
-	assert.that(true)
+describe "tests del grandioso juego" {
+	var listaZombies = []
+	const tPersonaje = personaje // por si a futuro cambiamos :)
+	const tAlpha = new Alpha(index = 1)
+	const tBeta = new Beta(index = 2)
+	const tDelta = new Delta(index = 3)
+	const tMuro = new Muro()
+	const tBomba = new Bomba()
+
+//	test "Cuando el juego termina - personaje muere - todos los zombies deben morir" {
+//		listaZombies.add(tAlpha)
+//		listaZombies.add(tBeta)
+//		listaZombies.add(tDelta)
+//		instrucciones.eliminarZombies(listaZombies)
+//		assert.that(listaZombies.length() == 0)
+//	}	
+	
+	test "El zombie resta vida cuando se le dispara" {
+		// Empieza con vida = 100
+		tAlpha.danoRecibido(60)
+		assert.that(tAlpha.vida() == 40)
+	}
+	
 }

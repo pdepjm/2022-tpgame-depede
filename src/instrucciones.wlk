@@ -25,7 +25,7 @@ object instrucciones {
 	
 	method agregarZombies(listaZombies) {
 		
-		if(!personaje.quedanZombiesPorMatar()) {
+		if(personaje.quedanZombiesPorMatar()) {
 			
 			if(juego.zombiesVivos() <= 5 && personaje.vida() > 0) {
 				if(juego.zombiesTotales() < 10) {

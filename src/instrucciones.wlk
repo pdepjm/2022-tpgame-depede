@@ -131,11 +131,14 @@ object inicio {
 
 object ganar {
 	var property position = game.at(0,0)
+	const musicaFinal = game.sound("credits.mp3")
 	method image() = "game-winner.jpg"
 	
 	method ganaste(){
 		game.addVisual(self)
 		game.schedule(0,{music.stop()})
+		sonido.danio(musicaFinal)		
+		
 	}
 	
 }

@@ -67,7 +67,7 @@ object personaje {
 		keyboard.down().onPressDo({ direccion = abajo });
 		keyboard.left().onPressDo({ direccion = izquierda });
 		keyboard.right().onPressDo({ direccion = derecha });
-		keyboard.m().onPressDo( { self.usar(new Muro()) })
+		keyboard.m().onPressDo({self.usar(new Muro())})
 		keyboard.n().onPressDo({self.usar(new Mina())})
 		keyboard.l().onPressDo({self.usar(new MuroLoco())})
 	}

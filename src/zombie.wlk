@@ -197,4 +197,6 @@ class Boss inherits Zombie {
 		super(danioRecibido)
 		ganar.ganaste()
 	}
+ 	
 }
+

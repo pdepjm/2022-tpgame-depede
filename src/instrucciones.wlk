@@ -24,9 +24,10 @@ object instrucciones {
 	}	
 	
 	method agregarZombies(listaZombies) {
-		if(personaje.quedanZombiesPorMatar()){
+		
+		if(!personaje.quedanZombiesPorMatar()) {
 			
-			if(juego.zombiesVivos() <= 5) {
+			if(juego.zombiesVivos() <= 5 && personaje.vida() > 0) {
 				if(juego.zombiesTotales() < 10) {
 					listaZombies.add(new Alpha(index = juego.zombiesTotales()))				
 				} else if(juego.zombiesTotales() < 20) {
@@ -36,10 +37,11 @@ object instrucciones {
 				}
 			}
 			
-		} else {
+		} else  {
 			game.removeTickEvent("nuevoZombie")
-			new Boss(index = juego.zombiesTotales())
+			var pajaro = new Boss(index = juego.zombiesTotales())
 		}
+		
 	}
 	
 	method eliminarZombies(listaZombies) {
@@ -110,7 +112,7 @@ object inicio {
 		game.addVisual(self)
 		musicInicio.shouldLoop(true)
 		musicInicio.volume(0.2)
-		game.schedule(200, { musicInicio.play()} )
+		game.schedule(2, { musicInicio.play()} )
 		
 		keyboard.enter().onPressDo { self.comenzar() }
 	}

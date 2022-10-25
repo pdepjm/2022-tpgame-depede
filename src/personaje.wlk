@@ -1,6 +1,3 @@
-// herencia: Personajes, niveles. Ir cambiando y evolucionando.
-// vida con imagenes que cambien!! -> cero necesario, no le dan bola a eso.
-
 import bala.*
 import movimientos.*
 import instrucciones.*
@@ -12,10 +9,12 @@ object personaje {
 	var property vida = 100
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
-	const danio = game.sound("perrito-danio.mp3")
+	var puedeRestarVida = true
+	const danioTrack = game.sound("perrito-danio.mp3")
 	var property puntos = 0
 	var property zombiesRestantes = 30
 	
+	method puedeRestarVida() = puedeRestarVida
 	
 	method puedeUsarse(habilidad){ return habilidad.cantidadPuntosRequeridos() <= self.puntos() }
 
@@ -79,21 +78,23 @@ object personaje {
 	}
 	
 	method danoRecibido(cuantoDanio) {
-		vida = 0.max(vida - cuantoDanio)
-		self.sonidoDanio()
-		if(vida <= 0) {
-			self.perdiste()
+		if(puedeRestarVida) {
+			vida = 0.max(vida - cuantoDanio)
+			sonido.danio(danioTrack)
+			if(vida <= 0) {
+				self.perdiste()
+			}
+			puedeRestarVida = false
+			game.schedule(1000, { puedeRestarVida = true })			
 		}
-	}
-	
-	method sonidoDanio() {
-		danio.shouldLoop(false)
-		danio.volume(0.2)
-		game.schedule(1,{danio.play()})
 	}
 	
 	method choqueConZombie(zombie) {
 		self.danoRecibido(zombie.danioQueHago())
+	}
+	
+	method quedanZombiesPorMatar() {
+		return self.zombiesRestantes() > 0
 	}
 }
 

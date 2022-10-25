@@ -11,8 +11,7 @@ const risa = game.sound("risaFinal.mp3")
 object instrucciones {
 	var property position = game.at(0,0)
 	method image() = "game-over.jpg"
-	
-	
+		
 	method crearEspacio() {
 		game.width(30)
  		game.height(19)
@@ -25,7 +24,8 @@ object instrucciones {
 	}	
 	
 	method agregarZombies(listaZombies) {
-		if(personaje.zombiesRestantes() > 0){
+		if(personaje.quedanZombiesPorMatar()){
+			
 			if(juego.zombiesVivos() <= 5) {
 				if(juego.zombiesTotales() < 10) {
 					listaZombies.add(new Alpha(index = juego.zombiesTotales()))				
@@ -42,31 +42,31 @@ object instrucciones {
 		}
 	}
 	
-	method musica() {
-		music.shouldLoop(true)
-		music.volume(0.1)
-		music.play()
-	}
-	method mostrarVida(){
-		vida.mostrarVida()
-
-		
+	method eliminarZombies(listaZombies) {
+		listaZombies.forEach({zombie => {
+			zombie.muero(100)
+		}})
 	}
 	
 	method gameOver(){
 		game.addVisual(self)
 		game.schedule(0,{music.stop()})
 		risa.volume(1)
-		risa.play()
-		
-		
+		risa.play()		
 	}
 }
 
-
-
 object sonido {
-	// TODO: deberiamos tener el objeto sonido que maneje todo el sonido!
+	method iniciarMusicaDeFondo() {
+		music.shouldLoop(true)
+		music.volume(0.1)
+		music.play()
+	}
+	method danio(track) {
+		track.shouldLoop(false)
+		track.volume(0.2)
+		game.schedule(1,{track.play()})
+	}
 }
 
 object vida {
@@ -74,7 +74,7 @@ object vida {
 	method position() = game.at(2,1)	
 	method text() = "Vida: " + personaje.vida() + "\n" + "Enemigos Restantes:" + personaje.zombiesRestantes() + "\n" + "Puntos:" + personaje.puntos() 
 	method textColor() = "00FF00FF"
-	method mostrarVida() {
+	method mostrar() {
 		game.addVisual(self)
 	}
 }
@@ -105,23 +105,28 @@ object inicio {
 	var property position = game.at(0,0)
 	var listaZombies = []
 	method image() = "inicio.png" 
+	
 	method mostrarInicio() {
 		game.addVisual(self)
 		musicInicio.shouldLoop(true)
 		musicInicio.volume(0.2)
 		game.schedule(200, { musicInicio.play()} )
-		keyboard.enter().onPressDo { 	
-			instrucciones.crearEspacio()
-			instrucciones.agregarPersonajes(listaZombies)
-			instrucciones.mostrarVida()
-			personaje.inicializarTeclas()
-			game.schedule(0,{musicInicio.stop()})
-			game.removeVisual(self)
-			instrucciones.musica()}
+		
+		keyboard.enter().onPressDo { self.comenzar() }
 	}
+	
+	method comenzar() {
+		instrucciones.crearEspacio()
+		instrucciones.agregarPersonajes(listaZombies)
+		vida.mostrar()
+		personaje.inicializarTeclas()
+		game.schedule(0,{musicInicio.stop()})
+		game.removeVisual(self)
+		sonido.iniciarMusicaDeFondo()
+	}		
 }
 
-object ganar{
+object ganar {
 	var property position = game.at(0,0)
 	method image() = "game-winner.jpg"
 	

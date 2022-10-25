@@ -8,7 +8,7 @@ const movimientoEntreDesplazamientoBala 	= 200000000000
 const desplazamientoBomba	 				= 2
 const movimientoEntreDesplazamientoBomba 	= 1500
 
-class ObjetosUsables{
+class ObjetosUsables {
 
 	var property position = personaje.position().up(0.7)
 	

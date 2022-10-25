@@ -12,7 +12,9 @@ class Zombie {
 	var direccion = abajo
 	var puedeMoverse = true
 	
-	const danio = game.sound("zombieDanio.mp3")
+	const zombieDanio = game.sound("zombieDanio.mp3")
+	
+	
 	
 	method image() = "zombie/" + tipo + "/zombie-" + direccion.prefijo()+".png"
 		 
@@ -76,23 +78,18 @@ class Zombie {
 		game.removeVisual(self)
 		game.removeTickEvent("movX-" + index )
 		game.removeTickEvent("movY-" + index )
-
-		
 	}
 
 	method danoRecibido(danioRecibido) {
 		vida = 0.max(vida - danioRecibido) // self.danioQueHago()
 		if(vida <= 0) {
-			self.sonidoDanio()
-			self.desaparecer(danioRecibido)
-
+			self.muero(danioRecibido)
 		} 
 	}
 	
-	method sonidoDanio() {
-		danio.shouldLoop(false)
-		danio.volume(0.2)
-		game.schedule(1,{danio.play()})
+	method muero(danioRecibido) {
+		sonido.danio(zombieDanio)
+		self.desaparecer(danioRecibido)
 	}
 
 	method detectarChoque() {

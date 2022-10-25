@@ -1,5 +1,3 @@
-// mas unitarios que federales.
-// no wollok game
 test "testX" {
 
 	assert.that(true)

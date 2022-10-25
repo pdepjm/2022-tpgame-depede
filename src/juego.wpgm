@@ -4,15 +4,7 @@ import instrucciones.*
 import zombie.*
 
 program juego {
-    
-    // MOVI TODO A INICIO.MOSTRARINICIO() PARA QUE HAYA UN BOTON PARA INICIAR
-    
-//	var listaZombies = []
-	instrucciones.crearEspacio()
-//	instrucciones.agregarPersonajes(listaZombies)
-//	instrucciones.mostrarVida()
-//	personaje.inicializarTeclas()
-//	instrucciones.musica()
+    instrucciones.crearEspacio()
 	inicio.mostrarInicio()
     game.start()
 }

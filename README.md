@@ -31,4 +31,11 @@ El jugador debera asesinar monstruos con disparos los cuales se efectuaran con e
 
 - K2004
 - wollok 3.0.0
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Queremos que sea publico
+
+## Conceptos del paradigma:
+https://docs.google.com/document/d/1hgbCiSGXFY6g-f1w8giZp5Yng02a_vckoNQ32CcWepg/edit
+
+## Diagrama estatico
+https://lucid.app/lucidchart/8bb46f21-4de0-43ff-b540-f51fcc84b0c3/edit?invitationId=inv_ba8d3b95-a244-426e-8323-3fcd8083005c&page=0_0#
+

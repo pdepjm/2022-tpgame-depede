@@ -51,7 +51,7 @@ object instrucciones {
 			} 
 		else {
 			game.removeTickEvent("nuevoZombie")
-			var pajaro = new Boss(index = zombiesRestantes)
+			const pajaro = new Boss(index = zombiesRestantes)
 		}
 		
 	}
@@ -67,19 +67,17 @@ object instrucciones {
 		return zombiesRestantes > 0
 	}	
 	
-//	method eliminarZombies(listaZombies) { // Esta de mas, hay que borrarlo.
-//		listaZombies.forEach({zombie => {
-//			zombie.muero(100)
-//			// listaZombies.remove(zombie)
-//		}})
-//		listaZombies.removeAllSuchThat({zombie => zombie.vida() >= -100 })
-//	}
+	method eliminarZombies() { 
+		inicio.listaZombies().forEach({zombie => {zombie.muero()}})
+		inicio.listaZombies().removeAllSuchThat({zombie => zombie.vida() >= -100 })
+	}
 	
 	method gameOver(){
 		game.addVisual(self)
 		game.schedule(0,{music.stop()})
 		risa.volume(1)
 		risa.play()		
+		self.eliminarZombies()
 	}
 }
 
@@ -113,7 +111,7 @@ object vida {
 
 object inicio {
 	var property position = game.at(0,0)
-	var listaZombies = []
+	var property listaZombies = []
 	method image() = "inicio.png" 
 	
 	method mostrarInicio() {

@@ -17,18 +17,12 @@ class ObjetosUsables {
 	
 	method danio()
 	method image()
-//	method sonido()
 	method accionarse()
 	
 	method eliminarme() {
 		game.removeVisual(self)
 	}
 	
-//	method sonidoDanio(){
-//		self.sonido().shouldLoop(false)
-//		self.sonido().volume(0.2)
-//		self.sonido().play()
-//	}
 	
 	method choqueConZombie(zombie) {
 		zombie.danoRecibido(self.danio())
@@ -81,7 +75,6 @@ class Muro inherits ObjetosUsables{
 	const construccion = game.sound("construir.mp3")
 	
 	override method cantidadPuntosRequeridos() = 100 
-//	override method sonido() {}
 	override method image() = "muro/muro-a.png"
 	override method danio() = 0
 	
@@ -105,7 +98,7 @@ class Muro inherits ObjetosUsables{
 class Mina inherits Muro {
  	const explosion = game.sound("explosion.mp3")
  	var property exploto = false
-//	override method sonido() {}
+
 	override method danio() = 175;
 	override method image() { 
 		if(!self.exploto()){
@@ -129,7 +122,6 @@ class Mina inherits Muro {
 
 class MuroLoco inherits Muro {
 	
-//	override method sonido() {}
 	override method danio() = 0;
 	override method image() = "muro/muro-a.png"
 	

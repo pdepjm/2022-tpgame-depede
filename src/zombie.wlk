@@ -8,7 +8,7 @@ class Zombie {
 	var index
 	var tipo = "alpha" // alpha - beta - delta
 	var property position = game.at(0,0)
-	var property vida = 100;
+	var property vidaRestante = 100;
 	var property direccion = abajo
 	var puedeMoverse = true
 	
@@ -57,7 +57,7 @@ class Zombie {
 	}  	
   	
   	method acercarseAlPersonaje() {
-  		game.onTick(1000, "movX-" + index , { self.moverseX()})
+  		game.schedule(500,{game.onTick(1000, "movX-" + index , { self.moverseX()})})
 	    game.onTick(1000, "movY-" + index , { self.moverseY()})
   	}
   	
@@ -72,8 +72,8 @@ class Zombie {
 		
 
 	method danoRecibido(danioRecibido) {
-		vida = 0.max(vida - danioRecibido) // self.danioQueHago()
-		if(vida <= 0) {
+		vidaRestante = 0.max(vidaRestante - danioRecibido) // self.danioQueHago()
+		if(vidaRestante <= 0) {
 			self.muero()
 		} else{
 			game.say(self, "me diste")
@@ -114,11 +114,11 @@ class Alpha inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "alpha"
-		vida = 75
+		vidaRestante = 75
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.4 
+		return vidaRestante*0.4 
 	}
 	
 
@@ -129,11 +129,11 @@ class Beta inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "beta"
-		vida = 100
+		vidaRestante = 100
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.3 
+		return vidaRestante*0.3 
 	}
 	
 
@@ -145,11 +145,11 @@ class Delta inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "delta"
-		vida = 200
+		vidaRestante = 200
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.25 
+		return vidaRestante*0.25 
 	}
 	
 
@@ -160,11 +160,11 @@ class Boss inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "finalboss"
-		vida = 500
+		vidaRestante = 500
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.13 // 65 de danio
+		return vidaRestante*0.13 // 65 de danio
 	}
 	
 

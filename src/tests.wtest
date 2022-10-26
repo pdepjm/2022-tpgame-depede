@@ -18,7 +18,7 @@ describe "tests del grandioso juego" {
 	test "El zombie resta vida cuando se le dispara" {
 		// Empieza con vida = 100
 		tAlpha.danoRecibido(60)
-		assert.that(tAlpha.vida() == 15)
+		assert.that(tAlpha.vidaRestante() == 15)
 	}
 
 //	test "Si hay nuevos zombies, deben contarse" {
@@ -41,7 +41,7 @@ describe "tests del grandioso juego" {
 	}
 	
 	test "Zombie Alpha con 50 de vida, hace 20 de daño" {
-		tAlpha.vida(50) 
+		tAlpha.vidaRestante(50) 
 		assert.that(tAlpha.danioQueHago() == 20)
 	}
 

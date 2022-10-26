@@ -15,14 +15,6 @@ describe "tests del grandioso juego" {
 	const tMuro = new Muro()
 	const tBomba = new Bomba()
 
-	test "Cuando el juego termina (personaje muere), todos los zombies deben morir" {
-		listaZombies.add(tAlpha)
-		listaZombies.add(tBeta)
-		listaZombies.add(tDelta)
-		instrucciones.eliminarZombies(listaZombies)
-		assert.that(listaZombies.length() == 0)
-	}	
-	
 	test "El zombie resta vida cuando se le dispara" {
 		// Empieza con vida = 100
 		tAlpha.danoRecibido(60)
@@ -33,7 +25,7 @@ describe "tests del grandioso juego" {
 		juego.nuevoZombie()
 		juego.nuevoZombie()
 		juego.nuevoZombie()
-		assert.that(juego.zombiesTotales() == 3)
+		assert.equals(juego.zombiesTotales(), 3)
 	}
 
 	test "Si un zombie muere, debe morir en el sistema" {
@@ -41,7 +33,7 @@ describe "tests del grandioso juego" {
 		juego.nuevoZombie()
 		juego.nuevoZombie()
 		juego.zombieMuere(100)
-		assert.that(juego.zombiesVivos() == 2)
+		assert.equals(juego.zombiesVivos(),2)
 	}
 
 	test "Zombie Alpha con 100 de vida, hace 40 de daño" {
@@ -49,7 +41,7 @@ describe "tests del grandioso juego" {
 	}
 	
 	test "Zombie Alpha con 50 de vida, hace 20 de daño" {
-		tAlpha.vida() = 50
+		tAlpha.vida(50) 
 		assert.that(tAlpha.danioQueHago() == 20)
 	}
 
@@ -66,11 +58,9 @@ describe "tests del grandioso juego" {
 	}
 
 	test "Si el personaje dispara, deben sumarse los disparos" {
-		tPersonaje.disparar()
-		tPersonaje.disparar()
-		tPersonaje.disparar()
-		// tPersonaje.nuevoDisparo()
-		// tPersonaje.nuevoDisparo()
+		 tPersonaje.nuevoDisparo()
+		 tPersonaje.nuevoDisparo()
+		 tPersonaje.nuevoDisparo()
 		assert.that(tPersonaje.disparosHechos() == 3)
 	}
 

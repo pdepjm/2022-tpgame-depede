@@ -47,8 +47,9 @@ object instrucciones {
 	method eliminarZombies(listaZombies) {
 		listaZombies.forEach({zombie => {
 			zombie.muero(100)
-			listaZombies.remove(zombie)
+			// listaZombies.remove(zombie)
 		}})
+		listaZombies.removeAllSuchThat({zombie => zombie.vida() >= -100 })
 	}
 	
 	method gameOver(){

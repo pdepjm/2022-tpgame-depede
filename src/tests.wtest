@@ -2,6 +2,8 @@ import personaje.*
 import zombie.*
 import instrucciones.*
 import bala.*
+import movimientos.*
+
 
 describe "tests del grandioso juego" {
 	var listaZombies = []
@@ -9,21 +11,81 @@ describe "tests del grandioso juego" {
 	const tAlpha = new Alpha(index = 1)
 	const tBeta = new Beta(index = 2)
 	const tDelta = new Delta(index = 3)
+	const tBoss = new Boss(index = 4)
 	const tMuro = new Muro()
 	const tBomba = new Bomba()
 
-//	test "Cuando el juego termina - personaje muere - todos los zombies deben morir" {
-//		listaZombies.add(tAlpha)
-//		listaZombies.add(tBeta)
-//		listaZombies.add(tDelta)
-//		instrucciones.eliminarZombies(listaZombies)
-//		assert.that(listaZombies.length() == 0)
-//	}	
+	test "Cuando el juego termina (personaje muere), todos los zombies deben morir" {
+		listaZombies.add(tAlpha)
+		listaZombies.add(tBeta)
+		listaZombies.add(tDelta)
+		instrucciones.eliminarZombies(listaZombies)
+		assert.that(listaZombies.length() == 0)
+	}	
 	
 	test "El zombie resta vida cuando se le dispara" {
 		// Empieza con vida = 100
 		tAlpha.danoRecibido(60)
 		assert.that(tAlpha.vida() == 40)
 	}
+
+	test "Si hay nuevos zombies, deben contarse" {
+		juego.nuevoZombie()
+		juego.nuevoZombie()
+		juego.nuevoZombie()
+		assert.that(juego.zombiesTotales() == 3)
+	}
+
+	test "Si un zombie muere, debe morir en el sistema" {
+		juego.nuevoZombie()
+		juego.nuevoZombie()
+		juego.nuevoZombie()
+		juego.zombieMuere(100)
+		assert.that(juego.zombiesVivos() == 2)
+	}
+
+	test "Zombie Alpha con 100 de vida, hace 40 de daño" {
+		assert.that(tAlpha.danioQueHago() == 40)
+	}
 	
+	test "Zombie Alpha con 50 de vida, hace 20 de daño" {
+		tAlpha.vida() = 50
+		assert.that(tAlpha.danioQueHago() == 20)
+	}
+
+	test "Zombie Beta con 100 de vida, hace 60 de daño" {
+		assert.that(tBeta.danioQueHago() == 60)
+	}
+
+	test "Zombie Delta con 100 de vida, hace 75 de daño" {
+		assert.that(tDelta.danioQueHago() == 75)
+	}
+
+	test "Zombie Boss con 500 de vida, hace 90 de daño" {
+		assert.that(tBoss.danioQueHago() == 90)
+	}
+
+	test "Si el personaje dispara, deben sumarse los disparos" {
+		tPersonaje.disparar()
+		tPersonaje.disparar()
+		tPersonaje.disparar()
+		// tPersonaje.nuevoDisparo()
+		// tPersonaje.nuevoDisparo()
+		assert.that(tPersonaje.disparosHechos() == 3)
+	}
+
+	test "Si el zombie ALPHA mira a la derecha, la imagen debe verse derecha" {
+		tAlpha.direccion(derecha)
+		assert.that(tAlpha.image() == "zombie/alpha/zombie-d.png")
+	}
+
+	test "Si el zombie BETA mira a la izquierda, la imagen debe verse izquierda" {
+		tBeta.direccion(izquierda)
+		assert.that(tBeta.image() == "zombie/beta/zombie-a.png")
+	}
+
+	test "Si el zombie DELTA mira hacia abajo, la imagen debe verse ABAJO" {
+		tDelta.direccion(abajo)
+		assert.that(tDelta.image() == "zombie/delta/zombie-s.png")
+	}
 }

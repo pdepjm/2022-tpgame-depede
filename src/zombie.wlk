@@ -9,7 +9,7 @@ class Zombie {
 	var tipo = "alpha" // alpha - beta - delta
 	var property position = game.at(0,0)
 	var property vida = 100;
-	var direccion = abajo
+	var property direccion = abajo
 	var puedeMoverse = true
 	
 	const zombieDanio = game.sound("zombieDanio.mp3")
@@ -97,7 +97,6 @@ class Zombie {
 	method choqueConZombie(obj) {
 		direccion.mover(-1,self)
 	}
-	
 
 	method danioQueHago()
 	method atacar()

@@ -11,7 +11,7 @@ object personaje {
 	var puedeDisparar = true
 	var puedeRestarVida = true
 	const danioTrack = game.sound("perrito-danio.mp3")
-	var property puntos = 3000
+	var property puntos = 0
 
 	
 	method puedeRestarVida() = puedeRestarVida

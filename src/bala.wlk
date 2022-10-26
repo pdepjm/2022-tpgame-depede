@@ -1,6 +1,7 @@
 import wollok.game.*
 import personaje.*
 import movimientos.*
+import instrucciones.*
 
 const desplazamientoDisparo 				= 1
 const movimientoEntreDesplazamientoBala 	= 200000000000
@@ -16,18 +17,18 @@ class ObjetosUsables {
 	
 	method danio()
 	method image()
-	method sonido()
+//	method sonido()
 	method accionarse()
 	
 	method eliminarme() {
 		game.removeVisual(self)
 	}
 	
-	method sonidoDanio(){
-		self.sonido().shouldLoop(false)
-		self.sonido().volume(0.2)
-		self.sonido().play()
-	}
+//	method sonidoDanio(){
+//		self.sonido().shouldLoop(false)
+//		self.sonido().volume(0.2)
+//		self.sonido().play()
+//	}
 	
 	method choqueConZombie(zombie) {
 		zombie.danoRecibido(self.danio())
@@ -41,10 +42,10 @@ class ObjetosUsables {
 class Bala inherits ObjetosUsables{
 	var index
 	const sentido 
+	const disparo = game.sound("disparo.mp3")
 	
 	override method cantidadPuntosRequeridos() = 0
     override method danio() = 100;
-	override method sonido() = game.sound("disparo.mp3")
 	override method image() = "fuego.png"
 	
 
@@ -58,7 +59,7 @@ class Bala inherits ObjetosUsables{
 				self.eliminarme()		
 			} 
 		})
-		self.sonidoDanio()
+		sonido.danio(disparo)
 	}
 	
 	override method eliminarme() {
@@ -77,10 +78,10 @@ class Bala inherits ObjetosUsables{
 class Muro inherits ObjetosUsables{ 
 	const tiempo = 6
 	const sentido = personaje.direccion()
-	const sound = game.sound("construir.mp3")
+	const construccion = game.sound("construir.mp3")
 	
 	override method cantidadPuntosRequeridos() = 100 
-	override method sonido() {}
+//	override method sonido() {}
 	override method image() = "muro/muro-a.png"
 	override method danio() = 0
 	
@@ -90,13 +91,10 @@ class Muro inherits ObjetosUsables{
 		game.schedule(tiempo * 1000, {
 			self.eliminarme()
 		})
-		self.reproducir(sound)
+		sonido.danio(construccion)
 	}
 	
-	method reproducir(suena){
-		suena.volume(0.2)
-		suena.play()
-	}
+
 	override method choqueConZombie(zombie) {
 		zombie.puedeMoverse(false)
 	}
@@ -107,7 +105,7 @@ class Muro inherits ObjetosUsables{
 class Mina inherits Muro {
  	const explosion = game.sound("explosion.mp3")
  	var property exploto = false
-	override method sonido() {}
+//	override method sonido() {}
 	override method danio() = 175;
 	override method image() { 
 		if(!self.exploto()){
@@ -125,15 +123,13 @@ class Mina inherits Muro {
 	method explotar(){
 		
 		exploto = true
-		explosion.shouldLoop(false)
-		explosion.volume(0.3)
-		game.schedule(1,{explosion.play()})
+		sonido.danio(explosion)
 	}
 }
 
 class MuroLoco inherits Muro {
 	
-	override method sonido() {}
+//	override method sonido() {}
 	override method danio() = 0;
 	override method image() = "muro/muro-a.png"
 	

@@ -6,7 +6,7 @@ import wollok.game.*
 object personaje { 
 	var disparosHechos = 0
 	var property position = game.center()
-	var property vida = 1000
+	var property vida = 100
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
 	var puedeRestarVida = true
@@ -58,7 +58,6 @@ object personaje {
 			
 	method inicializarTeclas() {
 		keyboard.space().onPressDo({self.disparar()});
-//		keyboard.b().onPressDo({bomba.disparar()});
 		keyboard.up().onPressDo({ direccion = arriba });
 		keyboard.down().onPressDo({ direccion = abajo });
 		keyboard.left().onPressDo({ direccion = izquierda });
@@ -76,8 +75,8 @@ object personaje {
 	method danoRecibido(cuantoDanio) {
 		if(puedeRestarVida) {
 			vida = 0.max(vida - cuantoDanio)
-			sonido.danio(danioTrack)
 			if(vida <= 0) {
+				sonido.danio(danioTrack)
 				self.perdiste()
 			}
 			puedeRestarVida = false

@@ -13,7 +13,7 @@ describe "tests del grandioso juego" {
 	const tDelta = new Delta(index = 3)
 	const tBoss = new Boss(index = 4)
 	const tMuro = new Muro()
-	const tBomba = new Bomba()
+
 
 	test "El zombie resta vida cuando se le dispara" {
 		// Empieza con vida = 100

@@ -37,7 +37,6 @@ class ObjetosUsables {
 }
 
 
-// EXISTE UN BUG CON LA BALA(? ENTONCES DEBERIA ELIMINARSE SI SE VA DE LA PANTALLA O A LOS 2 SEG
 
 class Bala inherits ObjetosUsables{
 	var index
@@ -74,45 +73,11 @@ class Bala inherits ObjetosUsables{
 	}
 	
 }
-
-
-/* La bomba si no la toca un zombie desaparece en 6 segundos, si la toca un zombie explota */ // ESTO SE SACO Y ESTA ABAJO COMO MINA
-class Bomba inherits ObjetosUsables {
-	override method cantidadPuntosRequeridos() = 100
-    override method danio() = 75;
-	override method sonido() = game.sound("disparo.mp3")  // Necesita otro sonido
-	override method image() = "bomba.png"  
-
-	
-	override method eliminarme() {
-		self.explotar()
-		super()
-	}
-	
-	override method choqueConZombie(zombie) {
-		self.explotar()
-		super(zombie)
-	}
-	
-	method explotar() {
-		// poner gif de explosion?? como seria?
-	}
-	
-	override method accionarse() {
-		game.addVisual(self)
-		game.schedule(6000, {
-			self.sonidoDanio()
-			self.eliminarme()
-		})
-	}
-	
-}
-
-
 	
 class Muro inherits ObjetosUsables{ 
 	const tiempo = 6
 	const sentido = personaje.direccion()
+	const sound = game.sound("construir.mp3")
 	
 	override method cantidadPuntosRequeridos() = 100 
 	override method sonido() {}
@@ -120,13 +85,18 @@ class Muro inherits ObjetosUsables{
 	override method danio() = 0
 	
 	override method accionarse(){
-		// Agregar sonidito, quedaria cool :)
+
 		game.addVisual(self)
 		game.schedule(tiempo * 1000, {
 			self.eliminarme()
 		})
+		self.reproducir(sound)
 	}
 	
+	method reproducir(suena){
+		suena.volume(0.2)
+		suena.play()
+	}
 	override method choqueConZombie(zombie) {
 		zombie.puedeMoverse(false)
 	}
@@ -135,13 +105,29 @@ class Muro inherits ObjetosUsables{
 
 
 class Mina inherits Muro {
+ 	const explosion = game.sound("explosion.mp3")
+ 	var property exploto = false
 	override method sonido() {}
-	override method danio() = 75;
-	override method image() = "muro/mina.png"
-	
+	override method danio() = 175;
+	override method image() { 
+		if(!self.exploto()){
+		return "muro/mina.png"
+		} else{
+			return "muro/explosion.png"
+		}
+	}
 	override method choqueConZombie(zombie) {
-		super(zombie) // Zombie no puede moverse
-		zombie.danoRecibido(self.danio())
+		if(!self.exploto()){
+			zombie.danoRecibido(self.danio())	
+			self.explotar()	
+		}
+	}	
+	method explotar(){
+		
+		exploto = true
+		explosion.shouldLoop(false)
+		explosion.volume(0.3)
+		game.schedule(1,{explosion.play()})
 	}
 }
 

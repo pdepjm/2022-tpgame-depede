@@ -39,7 +39,7 @@ class Zombie {
 	  		}	
 	  		direccion.mover(1,self)		
 		} else {
-			self.puedeMoverse(true) // habria que corregir esta logica/performance!!
+			self.puedeMoverse(true) 
 		}
 	}
 
@@ -52,12 +52,12 @@ class Zombie {
 	  		}	
   			direccion.mover(1,self)		
 		} else {
-			self.puedeMoverse(true) // habria que corregir esta logica/performance!!
+			self.puedeMoverse(true) 
 		}
 	}  	
   	
   	method acercarseAlPersonaje() {
-  		game.onTick(1000, "movX-" + index , { self.moverseX() })
+  		game.onTick(1000, "movX-" + index , { self.moverseX()})
 	    game.onTick(1000, "movY-" + index , { self.moverseY()})
   	}
   	
@@ -75,15 +75,17 @@ class Zombie {
 		vida = 0.max(vida - danioRecibido) // self.danioQueHago()
 		if(vida <= 0) {
 			self.muero()
-		} 
+		} else{
+			game.say(self, "me diste")
+		}
 	}
 	
 	method muero() {
 		sonido.danio(zombieDanio)
 		instrucciones.zombieMuere()
 		game.removeVisual(self)
-		game.removeTickEvent("movX-" + index )
-		game.removeTickEvent("movY-" + index )
+		game.removeTickEvent("movX-" + index)
+		game.removeTickEvent("movY-" + index)
 	}
 
 	method detectarChoque() {
@@ -95,16 +97,13 @@ class Zombie {
 	}
 
 	method danioQueHago()
-	method atacar()
+
 	
 	method puedeMoverse(valor) {
 		puedeMoverse = valor
 	}
 	
-	method directoAbajo() {         // -- Revisar llamado
-		position = game.at(0,0)
-	}
-	
+
 	
 }
 
@@ -115,13 +114,10 @@ class Alpha inherits Zombie {
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.4
+		return vida*0.4 // 40 de danio
 	}
 	
-	override method atacar() {
 
-	}
-	
 }
 
 class Beta inherits Zombie {
@@ -129,20 +125,14 @@ class Beta inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "beta"
+		vida = 150
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.6
+		return vida*0.3 // 45 de danio
 	}
 	
-	override method atacar() {
-		game.onTick(2500,"atacar-" + index + "-" + tipo, { self.soltar()})
-	}
-	
-	method soltar() {
-		
-	}
-	
+
 }
 
 class Delta inherits Zombie {
@@ -150,18 +140,11 @@ class Delta inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "delta"
+		vida = 200
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.75
-	}
-	
-	override method atacar() {
-		game.onTick(2500,"atacar-" + index + "-" + tipo, { self.disparar()})
-	}
-	
-	method disparar() {
-		
+		return vida*0.25 // 50 de danio
 	}
 	
 }
@@ -175,16 +158,10 @@ class Boss inherits Zombie {
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.18 // tiene 500 de vida
+		return vida*0.13 // 65 de danio
 	}
 	
-	override method atacar() {
-		game.onTick(2500,"atacar-" + index + "-" + tipo, { self.disparar()})
-	}
-	
-	method disparar() {
-		
-	}
+
 	
 	override method muero(){
 		super()

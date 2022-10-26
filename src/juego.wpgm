@@ -1,7 +1,5 @@
 import wollok.game.*
-import personaje.*
 import instrucciones.*
-import zombie.*
 
 program juego {
     instrucciones.crearEspacio()

@@ -6,13 +6,13 @@ import wollok.game.*
 object personaje { 
 	var disparosHechos = 0
 	var property position = game.center()
-	var property vida = 100
+	var property vida = 1000
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
 	var puedeRestarVida = true
 	const danioTrack = game.sound("perrito-danio.mp3")
-	var property puntos = 0
-	var property zombiesRestantes = 30
+	var property puntos = 3000
+
 	
 	method puedeRestarVida() = puedeRestarVida
 	
@@ -89,9 +89,7 @@ object personaje {
 		self.danoRecibido(zombie.danioQueHago())
 	}
 	
-	method quedanZombiesPorMatar() {
-		return self.zombiesRestantes() > 0
-	}
+
 }
 
 

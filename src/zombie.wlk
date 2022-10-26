@@ -62,7 +62,6 @@ class Zombie {
   	}
   	
   	method initialize(){
-  		juego.nuevoZombie()
 		const x = 8.randomUpTo(game.width())
 		const y = 5.randomUpTo(game.height())
 		position = game.at(x,y)
@@ -71,23 +70,20 @@ class Zombie {
 		self.detectarChoque()		
 	}
 		
-	method desaparecer(danioRecibido) {
-		juego.zombieMuere(danioRecibido)
-		game.removeVisual(self)
-		game.removeTickEvent("movX-" + index )
-		game.removeTickEvent("movY-" + index )
-	}
 
 	method danoRecibido(danioRecibido) {
 		vida = 0.max(vida - danioRecibido) // self.danioQueHago()
 		if(vida <= 0) {
-			self.muero(danioRecibido)
+			self.muero()
 		} 
 	}
 	
-	method muero(danioRecibido) {
+	method muero() {
 		sonido.danio(zombieDanio)
-		self.desaparecer(danioRecibido)
+		instrucciones.zombieMuere()
+		game.removeVisual(self)
+		game.removeTickEvent("movX-" + index )
+		game.removeTickEvent("movY-" + index )
 	}
 
 	method detectarChoque() {
@@ -190,8 +186,8 @@ class Boss inherits Zombie {
 		
 	}
 	
-	override method desaparecer(danioRecibido){
-		super(danioRecibido)
+	override method muero(){
+		super()
 		ganar.ganaste()
 	}
  	

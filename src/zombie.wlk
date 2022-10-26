@@ -103,7 +103,10 @@ class Zombie {
 		puedeMoverse = valor
 	}
 	
-
+	method directoAbajo() {         
+		position = game.at(0,0)
+	}
+	
 	
 }
 
@@ -111,10 +114,11 @@ class Alpha inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "alpha"
+		vida = 75
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.4 // 40 de danio
+		return vida*0.4 
 	}
 	
 
@@ -125,14 +129,15 @@ class Beta inherits Zombie {
 	method initialize() {
 		super()
 		tipo = "beta"
-		vida = 150
+		vida = 100
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.3 // 45 de danio
+		return vida*0.3 
 	}
 	
 
+	
 }
 
 class Delta inherits Zombie {
@@ -144,9 +149,10 @@ class Delta inherits Zombie {
 	}	
 	
 	override method danioQueHago() {
-		return vida*0.25 // 50 de danio
+		return vida*0.25 
 	}
 	
+
 }
 
 

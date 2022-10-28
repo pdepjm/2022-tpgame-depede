@@ -38,6 +38,8 @@ object instrucciones {
 					self.agregarZombiePantalla()
 					zombiesGenerados+=1			
 				} else if(zombiesGenerados < 20) {
+					// TODO: PASAr por parametro
+					// new Beta(index = zombiesGenerados)
 					listaZombies.add(new Beta(index = zombiesGenerados))
 					self.agregarZombiePantalla()
 					zombiesGenerados+=1
@@ -57,9 +59,12 @@ object instrucciones {
 	}
 	
 	method agregarZombiePantalla(){zombiesEnPantalla +=1}
+	
 	method zombieMuere() {
 		zombiesEnPantalla -= 1
 		zombiesRestantes -=  1 
+		// TODO: modificar linea de abajo a personaje.agregarPuntos(100)
+		// Para mantener el encapsulamiento.
 		personaje.puntos(personaje.puntos() + 100) 
 	}
 	
@@ -74,6 +79,7 @@ object instrucciones {
 	
 	method gameOver(){
 		game.addVisual(self)
+		// TODO: mover a sonido
 		game.schedule(0,{music.stop()})
 		risa.volume(1)
 		risa.play()		

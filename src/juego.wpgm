@@ -2,6 +2,8 @@ import wollok.game.*
 import instrucciones.*
 
 program juego {
+	// TODO: Agregar reglas al principio o ir dando hints a lo largo del desarrollo del juego
+	// TODO: Achicar sprites 
     instrucciones.crearEspacio()
 	inicio.mostrarInicio()
     game.start()

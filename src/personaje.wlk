@@ -6,31 +6,35 @@ import wollok.game.*
 object personaje { 
 	var disparosHechos = 0
 	var property position = game.center()
-	var property vida = 100
+	var vida = 100 // TODO: revisar
 	var direccion = derecha // la direccion es un objeto
 	var puedeDisparar = true
 	var puedeRestarVida = true
 	const danioTrack = game.sound("perrito-danio.mp3")
 	var property puntos = 0
 
+	method vida() = vida
 	
 	method puedeRestarVida() = puedeRestarVida
 	
-	method puedeUsarse(habilidad){ return habilidad.cantidadPuntosRequeridos() <= self.puntos() }
+	method puedeUsarse(habilidad){ return habilidad.cantidadPuntosRequeridos() <= puntos }
 
 	method usar(habilidad) {
 		if ( self.puedeUsarse(habilidad) ) { 	
 			habilidad.accionarse()
 			self.puntos( self.puntos() - habilidad.cantidadPuntosRequeridos())
+			// TODO: metodo que cambie puntos para restar tanto como para sumar
+			// manejarPuntos ej
 		}
 	}
 
-	method image() = "personaje/personaje-" + direccion.prefijo()+".png"
+	method image() = "personaje/personaje-" + direccion.prefijo() + ".png"
 
-	method direccion() = return direccion
+	method direccion() = direccion
 	
+	// TODO: cambiar a variable. No hace falta get y set.
+	// rompe encapsulamiento. Es interno el uso.
 	method puedeDisparar() = puedeDisparar
-	
 	method puedeDisparar(valor) {
 		puedeDisparar = valor
 	}

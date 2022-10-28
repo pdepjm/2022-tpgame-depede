@@ -5,8 +5,10 @@ import movimientos.*
 import instrucciones.*
 
 class Zombie {
+	// TODO: pasar a  composicion. no hace falta herencia en los zombies. Pasar por parametro en la instanciacion lo que cambie.
 	var index
-	var tipo = "alpha" // alpha - beta - delta
+	var tipo // alpha - beta - delta
+	// TODO: tipo es nombreImagen en realidad
 	var property position = game.at(0,0)
 	var property vidaRestante = 100;
 	var property direccion = abajo
@@ -14,7 +16,7 @@ class Zombie {
 	
 	const zombieDanio = game.sound("zombieDanio.mp3")
 	
-	method image() = "zombie/" + tipo + "/zombie-" + direccion.prefijo()+".png"
+	method image() = "zombie/" + tipo + "/zombie-" + direccion.prefijo() + ".png"
 		 
 	method personajeMismoLugarQueZombie(charact) {
 		return (charact.position().x() == self.position().x()) || (charact.position().y() == self.position().y())
@@ -135,9 +137,6 @@ class Beta inherits Zombie {
 	override method danioQueHago() {
 		return vidaRestante*0.3 
 	}
-	
-
-	
 }
 
 class Delta inherits Zombie {
@@ -155,7 +154,6 @@ class Delta inherits Zombie {
 
 }
 
-
 class Boss inherits Zombie {
 	method initialize() {
 		super()
@@ -167,12 +165,9 @@ class Boss inherits Zombie {
 		return vidaRestante*0.13 // 65 de danio
 	}
 	
-
-	
 	override method muero(){
 		super()
 		ganar.ganaste()
 	}
  	
 }
-

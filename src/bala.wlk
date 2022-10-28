@@ -10,11 +10,10 @@ const desplazamientoBomba	 				= 2
 const movimientoEntreDesplazamientoBomba 	= 1500
 
 class ObjetosUsables {
-
+	// TODO: agregar al diagrama que la clase es abstracta
 	var property position = personaje.position().up(1)
 	
 	method cantidadPuntosRequeridos()
-	
 	method danio()
 	method image()
 	method accionarse()
@@ -23,15 +22,12 @@ class ObjetosUsables {
 		game.removeVisual(self)
 	}
 	
-	
 	method choqueConZombie(zombie) {
 		zombie.danoRecibido(self.danio())
 		self.eliminarme()
 	}
 
 }
-
-
 
 class Bala inherits ObjetosUsables{
 	var index
@@ -94,35 +90,38 @@ class Muro inherits ObjetosUsables{
 	
 }
 
-
 class Mina inherits Muro {
  	const explosion = game.sound("explosion.mp3")
- 	var property exploto = false
+ 	// TODO: ver si puede ser una variable "exploto"
+	var property exploto = false
 
 	override method danio() = 175;
+	
 	override method image() { 
 		if(!self.exploto()){
-		return "muro/mina.png"
+			return "muro/mina.png"
 		} else{
 			return "muro/explosion.png"
+			// TODO: si exploto que 500ms se borre
 		}
 	}
+	
 	override method choqueConZombie(zombie) {
 		if(!self.exploto()){
 			zombie.danoRecibido(self.danio())	
 			self.explotar()	
 		}
 	}	
+	
 	method explotar(){
-		
 		exploto = true
 		sonido.danio(explosion)
 	}
 }
 
 class MuroLoco inherits Muro {
-	
-	override method danio() = 0;
+	// TODO: REVISAR BOORADO ABAJO
+	// override method danio() = 0;
 	override method image() = "muro/muro-a.png"
 	
 	method initialize() {

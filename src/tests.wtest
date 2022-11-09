@@ -9,9 +9,9 @@ describe "tests del grandioso juego" {
 //	var listaZombies = []
 	const tPersonaje = personaje // por si a futuro cambiamos :)
 	const tAlpha = new Zombie(index = 1, tipo = alpha)
-	const tBeta = new Beta(index = 2, tipo = beta)
-	const tDelta = new Delta(index = 3, tipo = delta)
-	const tBoss = new Boss(index = 4, tipo = boss)
+	const tBeta = new Zombie(index = 2, tipo = beta)
+	const tDelta = new Zombie(index = 3, tipo = delta)
+	const tBoss = new Zombie(index = 4, tipo = boss)
 //	const tMuro = new Muro()
 
 

@@ -10,7 +10,6 @@ const desplazamientoBomba	 				= 2
 const movimientoEntreDesplazamientoBomba 	= 1500
 
 class ObjetosUsables {
-	// TODO: agregar al diagrama que la clase es abstracta
 	var property position = personaje.position().up(1)
 	
 	method cantidadPuntosRequeridos()
@@ -101,8 +100,10 @@ class Mina inherits Muro {
 		if(!self.exploto()){
 			return "muro/mina.png"
 		} else{
+			game.schedule(500, {
+				self.eliminarme()					
+			})
 			return "muro/explosion.png"
-			// TODO: si exploto que 500ms se borre
 		}
 	}
 	

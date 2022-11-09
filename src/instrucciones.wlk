@@ -28,32 +28,27 @@ object instrucciones {
   		game.onTick(2000, "nuevoZombie", { self.agregarZombies(listaZombies) })
 	}	
 	
+	method generarZombie(listaZombies, tipoX) {
+		listaZombies.add(new Zombie(index = zombiesGenerados, tipo = tipoX))
+		self.agregarZombiePantalla()
+		zombiesGenerados+=1	
+	}
+	
 	method agregarZombies(listaZombies) {
-		
 		if(self.quedanZombiesPorMatar()) {
-			
 			if(zombiesEnPantalla <= 5 && personaje.vida() > 0) {
 				if(zombiesGenerados < 10) { //LO PUSE ASI PARA QUE SE GENEREN MAXIMO 10 POR CLASE, ANTES SE PODIAN GENERAR MAS
-					listaZombies.add(new Alpha(index = zombiesGenerados)) // EL INDEX ES zombiesGenerados PARA CONTABILIZARLOS ANTES SE MEZCLABAN
-					self.agregarZombiePantalla()
-					zombiesGenerados+=1			
+					self.generarZombie(listaZombies, alpha)		
 				} else if(zombiesGenerados < 20) {
-					// TODO: PASAr por parametro
-					// new Beta(index = zombiesGenerados)
-					listaZombies.add(new Beta(index = zombiesGenerados))
-					self.agregarZombiePantalla()
-					zombiesGenerados+=1
+					self.generarZombie(listaZombies, beta)
 				} else {
-					listaZombies.add(new Delta(index = zombiesGenerados))
-					self.agregarZombiePantalla()
-					zombiesGenerados+=1
+					self.generarZombie(listaZombies, delta)
 				}
 			}
 			
-			} 
-		else {
+		} else {
 			game.removeTickEvent("nuevoZombie")
-			const pajaro = new Boss(index = zombiesRestantes)
+			const pajaro = new Zombie(index = zombiesRestantes, tipo = boss)
 		}
 		
 	}
@@ -63,9 +58,7 @@ object instrucciones {
 	method zombieMuere() {
 		zombiesEnPantalla -= 1
 		zombiesRestantes -=  1 
-		// TODO: modificar linea de abajo a personaje.agregarPuntos(100)
-		// Para mantener el encapsulamiento.
-		personaje.puntos(personaje.puntos() + 100) 
+		personaje.agregarPuntos(100) 
 	}
 	
 	method quedanZombiesPorMatar() {
@@ -79,10 +72,7 @@ object instrucciones {
 	
 	method gameOver(){
 		game.addVisual(self)
-		// TODO: mover a sonido
-		game.schedule(0,{music.stop()})
-		risa.volume(1)
-		risa.play()		
+		sonido.gameOver()
 		self.eliminarZombies()
 	}
 }
@@ -98,9 +88,14 @@ object sonido {
 		track.volume(0.2)
 		game.schedule(1,{track.play()})
 	}
+	method gameOver() {
+		game.schedule(0,{music.stop()})
+		risa.volume(1)
+		risa.play()		
+	}
 }
 
-object vida {
+object vidaManager {
 	
 	method position() = game.at(2,1)	
 	method text() = "Vida: " + personaje.vida() + "\n" + "Enemigos Restantes:" + instrucciones.zombiesRestantes().max(0) + "\n" + "Puntos:" + personaje.puntos() 
@@ -132,7 +127,7 @@ object inicio {
 	method comenzar() {
 		instrucciones.crearEspacio()
 		instrucciones.agregarPersonajes(listaZombies)
-		vida.mostrar()
+		vidaManager.mostrar()
 		personaje.inicializarTeclas()
 		game.schedule(0,{musicInicio.stop()})
 		game.removeVisual(self)

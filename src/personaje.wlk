@@ -43,6 +43,10 @@ object personaje {
 		disparosHechos++
 	}
 	
+	method agregarPuntos(cantidad) {
+		puntos += cantidad
+	}
+	
 	method disparosHechos() = disparosHechos
 			
 	method esperaDeDisparo() {

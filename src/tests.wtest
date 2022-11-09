@@ -6,13 +6,13 @@ import movimientos.*
 
 
 describe "tests del grandioso juego" {
-	var listaZombies = []
+//	var listaZombies = []
 	const tPersonaje = personaje // por si a futuro cambiamos :)
-	const tAlpha = new Alpha(index = 1)
-	const tBeta = new Beta(index = 2)
-	const tDelta = new Delta(index = 3)
-	const tBoss = new Boss(index = 4)
-	const tMuro = new Muro()
+	const tAlpha = new Zombie(index = 1, tipo = alpha)
+	const tBeta = new Beta(index = 2, tipo = beta)
+	const tDelta = new Delta(index = 3, tipo = delta)
+	const tBoss = new Boss(index = 4, tipo = boss)
+//	const tMuro = new Muro()
 
 
 	test "El zombie resta vida cuando se le dispara" {
@@ -20,21 +20,6 @@ describe "tests del grandioso juego" {
 		tAlpha.danoRecibido(60)
 		assert.that(tAlpha.vidaRestante() == 15)
 	}
-
-//	test "Si hay nuevos zombies, deben contarse" {
-//		juego.nuevoZombie()
-//		juego.nuevoZombie()
-//		juego.nuevoZombie()
-//		assert.equals(juego.zombiesTotales(), 3)
-//	}
-
-//	test "Si un zombie muere, debe morir en el sistema" {
-//		juego.nuevoZombie()
-//		juego.nuevoZombie()
-//		juego.nuevoZombie()
-//		juego.zombieMuere(100)
-//		assert.equals(juego.zombiesVivos(),2)
-//	}
 
 	test "Zombie Alpha con 75 de vida, hace 30 de daño" {
 		assert.that(tAlpha.danioQueHago() == 30)

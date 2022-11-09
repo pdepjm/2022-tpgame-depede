@@ -5,18 +5,16 @@ import movimientos.*
 import instrucciones.*
 
 class Zombie {
-	// TODO: pasar a  composicion. no hace falta herencia en los zombies. Pasar por parametro en la instanciacion lo que cambie.
 	var index
-	var tipo // alpha - beta - delta
-	// TODO: tipo es nombreImagen en realidad
+	var tipo // alpha - beta - delta - boss
 	var property position = game.at(0,0)
-	var property vidaRestante = 100;
+	var property vidaRestante = tipo.vidaInicial();
 	var property direccion = abajo
 	var puedeMoverse = true
 	
 	const zombieDanio = game.sound("zombieDanio.mp3")
 	
-	method image() = "zombie/" + tipo + "/zombie-" + direccion.prefijo() + ".png"
+	method image() = "zombie/" + tipo.str() + "/zombie-" + direccion.prefijo() + ".png"
 		 
 	method personajeMismoLugarQueZombie(charact) {
 		return (charact.position().x() == self.position().x()) || (charact.position().y() == self.position().y())
@@ -98,9 +96,10 @@ class Zombie {
 		direccion.mover(-1,self)
 	}
 
-	method danioQueHago()
+	method danioQueHago() {
+		return tipo.danioQueHago(vidaRestante)
+	}
 
-	
 	method puedeMoverse(valor) {
 		puedeMoverse = valor
 	}
@@ -112,62 +111,38 @@ class Zombie {
 	
 }
 
-class Alpha inherits Zombie {
-	method initialize() {
-		super()
-		tipo = "alpha"
-		vidaRestante = 75
-	}	
-	
-	override method danioQueHago() {
-		return vidaRestante*0.4 
+object alpha {
+	method vidaInicial() = 75
+	method danioQueHago(vida) {
+		return vida*0.4 
 	}
-	
-
+	method str() = "alpha"
 }
 
-class Beta inherits Zombie {
-	
-	method initialize() {
-		super()
-		tipo = "beta"
-		vidaRestante = 100
-	}	
-	
-	override method danioQueHago() {
-		return vidaRestante*0.3 
+object beta {
+	method vidaInicial() = 100
+	method danioQueHago(vida) {
+		return vida*0.3 
 	}
+	method str() = "beta"
 }
 
-class Delta inherits Zombie {
-	
-	method initialize() {
-		super()
-		tipo = "delta"
-		vidaRestante = 200
-	}	
-	
-	override method danioQueHago() {
-		return vidaRestante*0.25 
+object delta {
+	method vidaInicial() = 200
+	method danioQueHago(vida) {
+		return vida*0.25 
 	}
-	
-
+	method str() = "delta"
 }
-
-class Boss inherits Zombie {
-	method initialize() {
-		super()
-		tipo = "finalboss"
-		vidaRestante = 500
-	}	
 	
-	override method danioQueHago() {
-		return vidaRestante*0.13 // 65 de danio
+object boss {
+	method vidaInicial() = 500
+	method danioQueHago(vida) {
+		return vida*0.13 
 	}
-	
-	override method muero(){
-		super()
+	method str() = "boss"
+	method muero(){
+		// super()
 		ganar.ganaste()
 	}
- 	
 }

@@ -28,7 +28,7 @@ El jugador debera asesinar monstruos con disparos los cuales se efectuaran con e
 - Left  - Izquierda
 - Space - Disparar
 - M     - Muro
-- N     - Mina
+- N     - Bomba
 - L     - Muro Loco
 
 

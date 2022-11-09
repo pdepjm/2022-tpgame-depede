@@ -1,6 +1,7 @@
 import bala.*
 import movimientos.*
 import instrucciones.*
+import objects.*
 import wollok.game.*
 
 object personaje { 
@@ -12,6 +13,7 @@ object personaje {
 	var puedeRestarVida = true
 	const danioTrack = game.sound("perrito-danio.mp3")
 	var property puntos = 0
+	var indexSonido 
 
 	method vida() = vida
 	
@@ -84,7 +86,9 @@ object personaje {
 				self.perdiste()
 			}
 			puedeRestarVida = false
-			game.schedule(1000, { puedeRestarVida = true })			
+			game.schedule(1000, { puedeRestarVida = true })
+			indexSonido = new SonidosPersonaje()
+			indexSonido.reproducir()
 		}
 	}
 	

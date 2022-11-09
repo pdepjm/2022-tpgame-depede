@@ -3,6 +3,7 @@ import personaje.*
 import bala.*
 import movimientos.*
 import instrucciones.*
+import objects.*
 
 class Zombie {
 	var index
@@ -11,6 +12,8 @@ class Zombie {
 	var property vidaRestante = tipo.vidaInicial();
 	var property direccion = abajo
 	var puedeMoverse = true
+	var sonidos = new SonidosPersonaje()
+	
 	
 	const zombieDanio = game.sound("zombieDanio.mp3")
 	
@@ -73,15 +76,15 @@ class Zombie {
 
 	method danoRecibido(danioRecibido) {
 		vidaRestante = 0.max(vidaRestante - danioRecibido) // self.danioQueHago()
+		sonidos = new SonidosPersonaje(sonidito = zombieDanio)
+		sonidos.reproducir()
 		if(vidaRestante <= 0) {
 			self.muero()
-		} else{
-			game.say(self, "me diste")
-		}
+		} 
 	}
 	
 	method muero() {
-		sonido.danio(zombieDanio)
+		//sonido.danio(zombieDanio)
 		instrucciones.zombieMuere()
 		game.removeVisual(self)
 		game.removeTickEvent("movX-" + index)

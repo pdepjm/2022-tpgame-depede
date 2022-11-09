@@ -10,7 +10,9 @@
 
 ## Capturas
 
-(agregar)
+![screenshot pantalla principal](assests/screen1.png)
+
+
 
 ## Reglas de Juego / Instrucciones
 

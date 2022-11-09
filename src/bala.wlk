@@ -36,10 +36,8 @@ class Bala inherits ObjetosUsables{
 	override method cantidadPuntosRequeridos() = 0
     override method danio() = 100;
 	override method image() = "fuego.png"
-	
 
 	override method accionarse() {
-		
 		game.addVisual(self)
 		game.onTick(movimientoEntreDesplazamientoBala, "disparo-"+index, {
 			if (!self.fueraDeMapa()) {
@@ -58,7 +56,7 @@ class Bala inherits ObjetosUsables{
 
 	
 	method fueraDeMapa() {
-		return  self.position().y() > game.height() or self.position().y() < 0 or 
+		return self.position().y() > game.height() or self.position().y() < 0 or 
 			self.position().x() < 0 or self.position().x() > game.width()
 	}
 	
@@ -74,15 +72,11 @@ class Muro inherits ObjetosUsables{
 	override method danio() = 0
 	
 	override method accionarse(){
-
 		game.addVisual(self)
-		game.schedule(tiempo * 1000, {
-			self.eliminarme()
-		})
+		game.schedule(tiempo * 1000, { self.eliminarme() })
 		sonido.danio(construccion)
 	}
 	
-
 	override method choqueConZombie(zombie) {
 		zombie.puedeMoverse(false)
 	}
@@ -91,7 +85,6 @@ class Muro inherits ObjetosUsables{
 
 class Mina inherits Muro {
  	const explosion = game.sound("explosion.mp3")
- 	// TODO: ver si puede ser una variable "exploto"
 	var property exploto = false
 
 	override method danio() = 175;
@@ -99,10 +92,7 @@ class Mina inherits Muro {
 	override method image() { 
 		if(!self.exploto()){
 			return "muro/mina.png"
-		} else{
-			game.schedule(500, {
-				self.eliminarme()					
-			})
+		} else {
 			return "muro/explosion.png"
 		}
 	}
@@ -117,12 +107,12 @@ class Mina inherits Muro {
 	method explotar(){
 		exploto = true
 		sonido.danio(explosion)
+//		game.schedule(500, { self.eliminarme() })
 	}
 }
 
 class MuroLoco inherits Muro {
-	// TODO: REVISAR BOORADO ABAJO
-	// override method danio() = 0;
+	// Eliminado el "override method danio() = 0"
 	override method image() = "muro/muro-a.png"
 	
 	method initialize() {

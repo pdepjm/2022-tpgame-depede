@@ -18,9 +18,9 @@ object instrucciones {
 	method zombiesRestantes() = zombiesRestantes
 	
 	method crearEspacio() {
-		game.width(25)
- 		game.height(13)
- 		game.cellSize(75)
+		game.width(18)
+ 		game.height(9)
+ 		game.cellSize(100)
 	    game.boardGround("doom.jpg")
 	}
 	method agregarPersonajes(listaZombies) {

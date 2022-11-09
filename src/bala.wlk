@@ -10,7 +10,7 @@ const desplazamientoBomba	 				= 2
 const movimientoEntreDesplazamientoBomba 	= 1500
 
 class ObjetosUsables {
-	var property position = personaje.position().up(1)
+	var property position = personaje.position()
 	
 	method cantidadPuntosRequeridos()
 	method danio()

@@ -10,4 +10,8 @@ class SonidosPersonaje{
 	}
 }
 
-
+class SonidosZombie inherits SonidosPersonaje{
+	method initialize(){
+		sonidito = game.sound("zombieDanio.mp3")
+	} 
+}

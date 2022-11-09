@@ -35,7 +35,7 @@ object instrucciones {
 	}
 	
 	method agregarZombies(listaZombies) {
-		if(self.quedanZombiesPorMatar()) {
+		if(!self.quedanZombiesPorMatar()) {
 			if(zombiesEnPantalla <= 5 && personaje.vida() > 0) {
 				if(zombiesGenerados < 10) { //LO PUSE ASI PARA QUE SE GENEREN MAXIMO 10 POR CLASE, ANTES SE PODIAN GENERAR MAS
 					self.generarZombie(listaZombies, alpha)		

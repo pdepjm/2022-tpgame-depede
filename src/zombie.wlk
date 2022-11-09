@@ -76,19 +76,25 @@ class Zombie {
 
 	method danoRecibido(danioRecibido) {
 		vidaRestante = 0.max(vidaRestante - danioRecibido) // self.danioQueHago()
-		sonidos = new SonidosPersonaje(sonidito = zombieDanio)
-		sonidos.reproducir()
+		self.instanciarSonido()
 		if(vidaRestante <= 0) {
 			self.muero()
-		} 
+		}
 	}
 	
+	method instanciarSonido(){ 
+		sonidos = new SonidosZombie()
+		sonidos.reproducir()
+	} 
 	method muero() {
 		//sonido.danio(zombieDanio)
 		instrucciones.zombieMuere()
 		game.removeVisual(self)
 		game.removeTickEvent("movX-" + index)
 		game.removeTickEvent("movY-" + index)
+		if(tipo.str() == "finalboss" ){
+			ganar.ganaste()
+		}	
 	}
 
 	method detectarChoque() {
@@ -143,7 +149,7 @@ object boss {
 	method danioQueHago(vida) {
 		return vida*0.13 
 	}
-	method str() = "boss"
+	method str() = "finalboss"
 	method muero(){
 		// super()
 		ganar.ganaste()

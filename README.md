@@ -10,7 +10,11 @@
 
 ## Capturas
 
-![screenshot pantalla principal](assests/screen1.png)
+![screenshot pantalla principal](screen1.png)
+![screenshot pantalla principal](screen2.png)
+![screenshot pantalla principal](screen3.png)
+![screenshot pantalla principal](screen4.png)
+![screenshot pantalla principal](screen5.png)
 
 
 

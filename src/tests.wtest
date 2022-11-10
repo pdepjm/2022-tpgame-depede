@@ -1,6 +1,63 @@
+import personaje.*
+import zombie.*
+import instrucciones.*
+import bala.*
+import movimientos.*
 
-test "testX" {
 
-	assert.that(true)
+describe "tests del grandioso juego" {
+//	var listaZombies = []
+	const tPersonaje = personaje // por si a futuro cambiamos :)
+	const tAlpha = new Zombie(index = 1, tipo = alpha)
+	const tBeta = new Zombie(index = 2, tipo = beta)
+	const tDelta = new Zombie(index = 3, tipo = delta)
+	const tBoss = new Zombie(index = 4, tipo = boss)
+//	const tMuro = new Muro()
 
+
+
+	test "Zombie Alpha con 75 de vida, hace 30 de daño" {
+		assert.that(tAlpha.danioQueHago() == 30)
+	}
+	
+	test "Zombie Alpha con 50 de vida, hace 20 de daño" {
+		tAlpha.vidaRestante(50) 
+		assert.that(tAlpha.danioQueHago() == 20)
+	}
+
+	test "Zombie Beta con 100 de vida, hace 30 de daño" {
+		assert.that(tBeta.danioQueHago() == 30)
+	}
+
+	test "Zombie Delta con 200 de vida, hace 75 de daño" {
+		assert.that(tDelta.danioQueHago() == 50)
+	}
+
+	test "Zombie Boss con 500 de vida, hace 65 de daño" {
+		assert.that(tBoss.danioQueHago() == 65)
+	}
+
+	test "Si el personaje dispara, deben sumarse los disparos" {
+		 tPersonaje.nuevoDisparo()
+		 tPersonaje.nuevoDisparo()
+		 tPersonaje.nuevoDisparo()
+		assert.that(tPersonaje.disparosHechos() == 3)
+	}
+
+	test "Si el zombie ALPHA mira a la derecha, la imagen debe verse derecha" {
+		tAlpha.direccion(derecha)
+		assert.that(tAlpha.image() == "zombie/alpha/zombie-d.png")
+	}
+
+	test "Si el zombie BETA mira a la izquierda, la imagen debe verse izquierda" {
+		tBeta.direccion(izquierda)
+		assert.that(tBeta.image() == "zombie/beta/zombie-a.png")
+	}
+
+	test "Si el zombie DELTA mira hacia abajo, la imagen debe verse ABAJO" {
+		tDelta.direccion(abajo)
+		assert.that(tDelta.image() == "zombie/delta/zombie-s.png")
+	}
+	
+	
 }

@@ -1,8 +1,10 @@
 import wollok.game.*
-import pepita.*
+import instrucciones.*
 
 program juego {
-	game.title("Juego Base")
-	game.addVisual(pepita)
-	game.start()
+	// TODO: Agregar reglas al principio o ir dando hints a lo largo del desarrollo del juego
+	// TODO: Achicar sprites 
+    instrucciones.crearEspacio()
+	inicio.mostrarInicio()
+    game.start()
 }

@@ -45,3 +45,7 @@ https://docs.google.com/document/d/1hgbCiSGXFY6g-f1w8giZp5Yng02a_vckoNQ32CcWepg/
 ## Diagrama estatico
 https://lucid.app/lucidchart/8bb46f21-4de0-43ff-b540-f51fcc84b0c3/edit?invitationId=inv_ba8d3b95-a244-426e-8323-3fcd8083005c&page=0_0#
 
+
+## Los assets fueron hechos en
+https://sanderfrenken.github.io/Universal-LPC-Spritesheet-Character-Generator/#?body=Body_color_light&head=Human_male_light
+
